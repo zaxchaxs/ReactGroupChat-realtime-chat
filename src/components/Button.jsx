@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-export default function Button({ isBtnLoggin, val, route }) {
+export default function Button({ isBtnLoggin, val, route, handleLogin }) {
     return (
-      <div className={`w-fit p-1.5 rounded-lg text-white font-bold text-center ${isBtnLoggin ? "bg-sky-700" : "bg-sky-500"} shadow-md hover:scale-105 transition-all ease-in-out duration-200 active:scale-100`}>
+      <div className={`w-fit p-1.5 rounded-lg text-white font-bold text-center ${isBtnLoggin ? "bg-sky-700" : "bg-sky-500"} shadow-md hover:scale-105 transition-all ease-in-out duration-200 active:scale-100`} onClick={handleLogin}>
         <a href={route} className="p-2 px-3">{val}</a>
       </div>
     );

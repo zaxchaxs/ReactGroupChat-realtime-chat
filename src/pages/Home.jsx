@@ -3,7 +3,7 @@ import testingLogo from "../assets/react.svg";
 
 export default function Home() {
     return(
-        <section className="p-4 w-full">
+        <section className="p-4 w-full pt-20">
             <div className="flex justify-between items-center">
                 {/* image */}
                 <div className="w-full items-center flex justify-center p-24">

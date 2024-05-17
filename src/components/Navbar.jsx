@@ -4,7 +4,7 @@ import Button from "./Button";
 
 export default function Navbar() {
     return (
-      <div className="p-5 bg-sky-600 justify-between flex">
+      <div className="p-5 bg-sky-600 justify-between flex fixed w-full">
         <div className="w-fit text-white font-bold text-center text-2xl">
             <a href="/">ReactGroup Chat</a>
         </div>

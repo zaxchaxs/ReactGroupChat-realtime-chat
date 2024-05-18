@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css'
 import Navbar from './components/Navbar';
-import Home from './pages/Homepage';
-import Chat from "./pages/Chatpage";
+import Homepage from './pages/Homepage';
+import Chatpage from "./pages/Chatpage";
 
 function App() {
 
@@ -11,8 +11,8 @@ function App() {
       <Navbar />
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/chat" element={<Chat />} />
+          <Route path="/" element={<Homepage />} />
+          <Route path="/chat" element={<Chatpage />} />
         </Routes>
       </Router>
     </>

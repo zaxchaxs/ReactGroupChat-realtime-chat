@@ -1,17 +1,43 @@
 import Button from "../components/Button";
 import testingLogo from "../assets/react.svg";
 // import { signInWithGoole } from "../contexts/authContext";
-import { signInWithRedirect } from "firebase/auth";
+import { getRedirectResult, signInWithRedirect } from "firebase/auth";
 import { auth, provider } from "../firebase";
+import { useState } from "react";
+import { useEffect } from "react";
+// import { useEffect } from "react";
 
 export default function Home() {
 
+    const [user, setUser] = useState();
+
     const googleHandlerLogin = async () => {
-        const res = await signInWithRedirect(auth, provider);
-        const datas = await res.json();
-        console.log(datas);
+        return await signInWithRedirect(auth, provider);
     }
 
+    useEffect(() => {
+        getRedirectResult(auth)
+        .then(res => {
+            const user = res;
+            setUser(user);
+        }).catch(err => {
+            console.log(err.message)
+        })
+    }, [auth])
+    
+    const testing = () => {
+        console.log(user);
+    }
+
+    const logout = () => {
+        try {
+            auth.signOut();
+            testing();
+        } catch(err) {
+            console.log(err.message)
+        }
+    }
+    
     return(
         <section className="p-4 w-full pt-20">
             <div className="flex justify-between items-center">
@@ -25,8 +51,8 @@ export default function Home() {
                     <h1 className="text-3xl p-2">Create Your Circle Group</h1>
                     <h2 className="text-xl p-2 font-normal">Start chit chat with your friends.</h2>
                     <div className="flex gap-7 p-2 my-10 justify-center"> 
-                        <Button val={"Login"} route={"/login"} />
-                        <Button val={"Register"} route={"/Register"} />
+                        <Button val={"Login"} handleLogin={testing} />
+                        <Button val={"Register"} handleLogin={logout} />
                         <Button val={"Login with google"} isBtnLoggin={true} handleLogin={googleHandlerLogin} />
                     </div>
                 </div>

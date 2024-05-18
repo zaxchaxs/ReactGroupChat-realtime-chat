@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { GoogleAuthProvider, getAuth } from "firebase/auth";
+import { GoogleAuthProvider, getAuth, signInWithRedirect, signOut } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -18,6 +19,28 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
-export const auth = getAuth(app);
-export const provider = new GoogleAuthProvider();
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+export const Authentication = () => {
+  const [user] = useAuthState(auth);
+  
+  const googleHandlerLogin = async () => {
+    return await signInWithRedirect(auth, provider)
+  };
+
+  const logout = () =>{
+    try {
+      signOut(auth);
+    } catch(err) {
+      console.log(err.message)
+    }
+  }
+
+  const method = {
+    user,
+    googleHandlerLogin,
+    logout
+  };
+  return method;
+}

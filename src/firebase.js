@@ -29,7 +29,7 @@ export const Authentication = () => {
     return await signInWithRedirect(auth, provider)
   };
 
-  const logout = () =>{
+  const logoutHandler = () =>{
     try {
       signOut(auth);
     } catch(err) {
@@ -40,7 +40,7 @@ export const Authentication = () => {
   const method = {
     user,
     googleHandlerLogin,
-    logout
+    logoutHandler
   };
   return method;
 }

@@ -1,7 +1,9 @@
 import Button from "../components/Button";
 import testingLogo from "../assets/react.svg";
 // import { signInWithGoole } from "../contexts/authContext";
-import { getRedirectResult, signInWithRedirect } from "firebase/auth";
+import { getRedirectResult, signInWithRedirect, signOut } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+
 import { auth, provider } from "../firebase";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -9,30 +11,21 @@ import { useEffect } from "react";
 
 export default function Home() {
 
-    const [user, setUser] = useState();
+    // const [user, setUser] = useState();
+    const [user] = useAuthState(auth);
 
     const googleHandlerLogin = async () => {
         return await signInWithRedirect(auth, provider);
     }
 
-    useEffect(() => {
-        getRedirectResult(auth)
-        .then(res => {
-            const user = res;
-            setUser(user);
-        }).catch(err => {
-            console.log(err.message)
-        })
-    }, [auth])
-    
     const testing = () => {
         console.log(user);
     }
 
+
     const logout = () => {
         try {
-            auth.signOut();
-            testing();
+            signOut(auth);
         } catch(err) {
             console.log(err.message)
         }

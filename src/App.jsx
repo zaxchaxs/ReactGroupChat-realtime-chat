@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css'
 import Navbar from './components/Navbar';
 import Homepage from './pages/Homepage';
-import Chatpage from "./pages/Chatpage";
+import ChatHomePage from "./pages/ChatHomePage";
 
 function App() {
 
@@ -12,7 +12,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/chat" element={<Chatpage />} />
+          <Route path="/chat" element={<ChatHomePage />} />
         </Routes>
       </Router>
     </>

@@ -2,11 +2,9 @@
 import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth, signInWithRedirect, signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore  } from "firebase/firestore";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APIKEY,
   authDomain: import.meta.env.VITE_AUTH_DOMAIN,
@@ -19,8 +17,9 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
+const auth = getAuth(app);
+const db = getFirestore(app);
 
 export const Authentication = () => {
   const [user] = useAuthState(auth);
@@ -39,8 +38,10 @@ export const Authentication = () => {
 
   const method = {
     user,
+    db, 
+    auth,
     googleHandlerLogin,
-    logoutHandler
+    logoutHandler,
   };
   return method;
 }

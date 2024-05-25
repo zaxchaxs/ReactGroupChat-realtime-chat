@@ -15,7 +15,8 @@ export default function Home() {
         try {
             const querySnapshot = await getDocs(collection(db, "users"));
             querySnapshot.forEach(doc => {
-                console.log(doc.data());
+                const { first } = doc.data();
+                console.log(first);
             })
         } catch(e) {
             console.log(e.message);

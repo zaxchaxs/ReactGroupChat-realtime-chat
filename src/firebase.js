@@ -32,7 +32,7 @@ export const Authentication = () => {
     try {
       signOut(auth);
     } catch(err) {
-      console.log(err.message)
+      console.error(err.message)
     }
   }
 

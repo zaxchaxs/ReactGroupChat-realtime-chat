@@ -1,11 +1,20 @@
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import { Authentication } from "../firebase";
-import { addDoc, getDocs, getDoc, collection, setDoc, doc } from "firebase/firestore";
+import { addDoc, getDocs, getDoc, query, collection, where, setDoc, doc, onSnapshot } from "firebase/firestore";
 
-export default function Chat() {
+export default function ChatHomePage() {
     const { user, auth, db } = Authentication();
     const [groups, setGroups] = useState([]);
+
+    useEffect(() => {
+      const unsubscribe = onSnapshot(collection(db, "groups"), (snapshot) => {
+        snapshot.docs.map(a => {
+          setGroups([a.data()]);
+          console.log(a.data());
+        });
+      });
+    }, []);
     
     const fetchData = async () => {
       try {
@@ -19,17 +28,17 @@ export default function Chat() {
       }
     }
     const testingClick = async () => {
-      const citiesRef = collection(db, "cities");
+      // const citiesRef = collection(db, "cities");
       try {
-        const docRef = doc(db, "cities", "SZ");
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          console.log("Document data:", docSnap.data());
-        } else {
-          // docSnap.data() will be undefined in this case
-          console.log("No such document!");
-        }
+          const q = query(collection(db, "cities"), where("state", "==", "CA"));
+          const unsubscribe = onSnapshot(q, (querySnapshot) => {
+            const cities = [];
+            querySnapshot.forEach((doc) => {
+                cities.push(doc.data().name);
+                // setGroups([...groups, doc.data().name])
+            });
+            console.log("Current cities in CA: ", cities);
+          });  
         // await setDoc(doc(citiesRef, "SF"), {
         //     name: "San Francisco", state: "CA", country: "USA",
         //     capital: false, population: 860000,
@@ -58,7 +67,7 @@ export default function Chat() {
 
     return (
       <>
-        {/* Validation if user isnt logged */}
+        {/* Validation if user isn't logged */}
         <section className={`w-full flex items-center absolute z-0 backdrop-blur-md h-screen justify-center ${ !user ? "" : "hidden"}`}>
           <div className={`w-full text-2xl font-bold text-gray-800`}>
             <h1>It seems you are not logged in yet, please log in first</h1>
@@ -68,11 +77,12 @@ export default function Chat() {
           </div>
         </section>
 
+        
         <section className="w-full flex justify-between">
           <div className="bg-blue-400 w-1/4 h-screen overflow-y-scroll pt-20">
               <div className="w-full p-4 h-full border-2 border-black items-center">
                 <CreateGrupBtn onCreateGroupClick={fetchData}  />
-                <Button val={"Test"} handleClick={testingClick} />
+                {/* <Button val={"Test"} handleClick={testingClick} /> */}
                 <div className={``}>
                   <h1 className="font-bold text-sky-900">There no groups yet, create one.</h1>
                 </div>

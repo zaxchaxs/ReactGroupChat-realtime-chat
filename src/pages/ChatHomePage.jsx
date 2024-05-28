@@ -2,18 +2,21 @@ import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import { Authentication } from "../firebase";
 import { addDoc, getDocs, getDoc, query, collection, where, setDoc, doc, onSnapshot } from "firebase/firestore";
+import Group from "../components/Group";
 
 export default function ChatHomePage() {
     const { user, auth, db } = Authentication();
     const [groups, setGroups] = useState([]);
 
-    useEffect(() => {
+    useEffect( () => {
       const unsubscribe = onSnapshot(collection(db, "groups"), (snapshot) => {
-        snapshot.docs.map(a => {
-          setGroups([a.data()]);
-          console.log(a.data());
-        });
+        const newData = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setGroups(newData);
       });
+      // unsubscribe();
     }, []);
     
     const fetchData = async () => {
@@ -79,13 +82,18 @@ export default function ChatHomePage() {
 
         
         <section className="w-full flex justify-between">
-          <div className="bg-blue-400 w-1/4 h-screen overflow-y-scroll pt-20">
-              <div className="w-full p-4 h-full border-2 border-black items-center">
+          <div className="bg-blue-400 w-2/4 h-screen overflow-y-scroll pt-20">
+              <div className="w-full h-ful items-center">
                 <CreateGrupBtn onCreateGroupClick={fetchData}  />
                 {/* <Button val={"Test"} handleClick={testingClick} /> */}
-                <div className={``}>
-                  <h1 className="font-bold text-sky-900">There no groups yet, create one.</h1>
-                </div>
+                {
+                  groups.length == 0 ?
+                  <div className={`border-2 border-black`}>
+                    <h1 className="font-bold text-sky-900">There no groups yet, create one.</h1>
+                  </div>
+                  :
+                  <Group data={groups} />
+                }
               </div>
           </div>
 

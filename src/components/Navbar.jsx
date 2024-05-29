@@ -7,7 +7,7 @@ export default function Navbar() {
   const { user, logoutHandler } = Authentication();
 
     return (
-      <div className="p-5 bg-sky-600 justify-between flex fixed w-full z-10">
+      <div className="p-5 bg-sky-600 justify-between flex fixed w-full z-20">
         <div className="w-fit text-white font-bold text-center text-2xl">
             <a href="/">ReactGroup Chat</a>
         </div>

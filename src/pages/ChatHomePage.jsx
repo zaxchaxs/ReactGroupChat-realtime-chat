@@ -3,10 +3,12 @@ import Button from "../components/Button";
 import { Authentication } from "../firebase";
 import { addDoc, getDocs, getDoc, query, collection, where, setDoc, doc, onSnapshot } from "firebase/firestore";
 import Group from "../components/Group";
+import ModalGroup from "../components/ModalCreateGroup";
 
 export default function ChatHomePage() {
     const { user, auth, db } = Authentication();
     const [groups, setGroups] = useState([]);
+    const [isModalShow, setModalShow] = useState(true);
 
     useEffect( () => {
       const unsubscribe = onSnapshot(collection(db, "groups"), (snapshot) => {
@@ -19,59 +21,28 @@ export default function ChatHomePage() {
       // unsubscribe();
     }, []);
     
-    const fetchData = async () => {
-      try {
-          const querySnapshot = await getDocs(collection(db, "users"));
-          // setGroups(querySnapshot);
-          // console.log(groups);
-          querySnapshot.forEach(doc => setGroups([...groups, doc.data()]));
-          console.log(groups);
-      } catch (e) {
-        console.error(e.message);
-      }
-    }
-    const testingClick = async () => {
-      // const citiesRef = collection(db, "cities");
-      try {
-          const q = query(collection(db, "cities"), where("state", "==", "CA"));
-          const unsubscribe = onSnapshot(q, (querySnapshot) => {
-            const cities = [];
-            querySnapshot.forEach((doc) => {
-                cities.push(doc.data().name);
-                // setGroups([...groups, doc.data().name])
-            });
-            console.log("Current cities in CA: ", cities);
-          });  
-        // await setDoc(doc(citiesRef, "SF"), {
-        //     name: "San Francisco", state: "CA", country: "USA",
-        //     capital: false, population: 860000,
-        //     regions: ["west_coast", "norcal"] });
-        // await setDoc(doc(citiesRef, "LA"), {
-        //     name: "Los Angeles", state: "CA", country: "USA",
-        //     capital: false, population: 3900000,
-        //     regions: ["west_coast", "socal"] });
-        // await setDoc(doc(citiesRef, "DC"), {
-        //     name: "Washington, D.C.", state: null, country: "USA",
-        //     capital: true, population: 680000,
-        //     regions: ["east_coast"] });
-        // await setDoc(doc(citiesRef, "TOK"), {
-        //     name: "Tokyo", state: null, country: "Japan",
-        //     capital: true, population: 9000000,
-        //     regions: ["kanto", "honshu"] });
-        // await setDoc(doc(citiesRef, "BJ"), {
-        //     name: "Beijing", state: null, country: "China",
-        //     capital: true, population: 21500000,
-        //     regions: ["jingjinji", "hebei"] });
-          } catch(e) {
-            console.error(e.message);
-          }
+
+    // handleFunctions
+    const handleCreateGroup = async () => {
+      setModalShow(true);
+        // try {
+        //   addDoc(collection(db, "groups"), {
+            
+        //   });
+        // } catch(e) {
+        //   console.error(e.message);
+        // }
       };
 
 
     return (
       <>
         {/* Validation if user isn't logged */}
-        <section className={`w-full flex items-center absolute z-0 backdrop-blur-md h-screen justify-center ${ !user ? "" : "hidden"}`}>
+        <section
+          className={`w-full flex items-center absolute z-0 backdrop-blur-md h-screen justify-center ${
+            !user ? "" : "hidden"
+          }`}
+        >
           <div className={`w-full text-2xl font-bold text-gray-800`}>
             <h1>It seems you are not logged in yet, please log in first</h1>
             <div className="flex justify-center p-4">
@@ -80,28 +51,29 @@ export default function ChatHomePage() {
           </div>
         </section>
 
-        
-        <section className="w-full flex justify-between">
-          <div className="bg-blue-400 w-2/4 h-screen overflow-y-scroll pt-20">
-              <div className="w-full h-ful items-center">
-                <CreateGrupBtn onCreateGroupClick={fetchData}  />
-                {/* <Button val={"Test"} handleClick={testingClick} /> */}
-                {
-                  groups.length == 0 ?
-                  <div className={`border-2 border-black`}>
-                    <h1 className="font-bold text-sky-900">There no groups yet, create one.</h1>
-                  </div>
-                  :
-                  <Group data={groups} />
-                }
-              </div>
+        <section className={`w-full flex justify-between relative `}>
+          <ModalGroup isShowed={isModalShow} />
+          <div className="bg-blue-400 w-2/4 h-screen overflow-y-scroll pt-20 ">
+            <div className="w-full h-ful items-center">
+              <CreateGrupBtn onCreateGroupClick={handleCreateGroup} />
+              {/* <Button val={"Test"} handleClick={testingClick} /> */}
+              {groups.length == 0 ? (
+                <div className={`border-2 border-black`}>
+                  <h1 className="font-bold text-sky-900">
+                    There no groups yet, create one.
+                  </h1>
+                </div>
+              ) : (
+                <Group data={groups} />
+              )}
+            </div>
           </div>
 
           <div className="w-full flex items-center text-center m-2">
             <div className="w-full text-lg text-sky-800 font-bold">
               <h1>
-                Start chit chat by creating your own group or join to your friend
-                group.
+                Start chit chat by creating your own group or join to your
+                friend group.
               </h1>
             </div>
           </div>

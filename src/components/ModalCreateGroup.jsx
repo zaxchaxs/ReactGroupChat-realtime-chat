@@ -1,16 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Authentication } from "../firebase";
-import { auth } from "../firebase";
 /* eslint-disable react/prop-types */
 export default function ModalGroup({ isShowed }) {
-    const { displayName } = auth.currentUser
+    const { auth, user } = Authentication();
+    const [name, setName] = useState("");
+
+    useEffect(() => {
+        setName(auth ? auth.currentUser.displayName : "");
+    }, [user]);
 
     const [groupName, setGroupName] = useState("");
 
     const newData = {
         name: groupName,
         created_at: new Date(),
-        created_by: displayName
+        created_by: name
     };
 
     const handleSubmit = (e) => {

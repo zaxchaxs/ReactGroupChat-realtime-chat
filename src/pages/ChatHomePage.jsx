@@ -8,7 +8,7 @@ import ModalGroup from "../components/ModalCreateGroup";
 export default function ChatHomePage() {
     const { user, auth, db } = Authentication();
     const [groups, setGroups] = useState([]);
-    const [isModalShow, setModalShow] = useState(true);
+    const [isModalShow, setModalShow] = useState(false);
 
     useEffect( () => {
       const unsubscribe = onSnapshot(collection(db, "groups"), (snapshot) => {

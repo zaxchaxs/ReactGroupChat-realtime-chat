@@ -7,12 +7,11 @@ import ModalGroup from "../components/ModalCreateGroup";
 import { useAuth } from "../contexts/AuthContext";
 import { db } from "../firebase";
 import Loader from "../components/Loader";
+import Groups from "../components/Groups";
 
 export default function ChatHomePage() {
     const { user, loading: authLoad } = useAuth();
     const [groups, setGroups] = useState([]);
-    const [isModalShow, setModalShow] = useState(false);
-    const [loading, setLoading] = useState(false);
 
     useEffect( () => {
       const unsubscribe = onSnapshot(collection(db, "groups"), (snapshot) => {
@@ -25,19 +24,6 @@ export default function ChatHomePage() {
       // unsubscribe();
     }, []);
     
-    // handleFunctions
-    const handleCloseModal = () => {
-      setModalShow(false);
-    }
-    const createGroupHandle = (newData) => {
-      try {
-        addDoc(collection(db, "groups"), newData);
-      } catch(e) {
-        console.error(e.message);
-      }
-      setModalShow(false);
-    }
-
     if (authLoad || groups.length == 0) {
       return <Loader />
     } else if(!user) {
@@ -56,22 +42,8 @@ export default function ChatHomePage() {
     } else {
       return (
           <section className={`w-full flex justify-between relative `}>
-            <ModalGroup isShowed={isModalShow} onSubmit={createGroupHandle} onModalClose={handleCloseModal} />
-            <div className="bg-blue-400 w-2/4 h-screen overflow-y-scroll pt-20 ">
-              <div className="w-full h-ful items-center">
-                <CreateGrupBtn onCreateGroupClick={() => setModalShow(true)} />
-                {groups.length == 0 ? (
-                  <div className={`border-2 border-black`}>
-                    <h1 className="font-bold text-sky-900">
-                      There no groups yet, create one.
-                    </h1>
-                  </div>
-                ) : (
-                  <Group data={groups} />
-                )}
-              </div>
-            </div>
-  
+
+            <Groups groups={groups} />  
             <div className="w-full flex items-center text-center m-2">
               <div className="w-full text-lg text-sky-800 font-bold">
                 <h1>
@@ -83,13 +55,4 @@ export default function ChatHomePage() {
           </section>
       );
     }
-}
-
-// child component
-function CreateGrupBtn({onCreateGroupClick}) {
-  return (
-    <div onClick={onCreateGroupClick} className="p-4 font-bold text-slate-100 hover:scale-105 transition-all ease-in-out duration-200 active:scale-100">
-      <button className="p-2 px-4 rounded-lg bg-sky-600">Create Group</button>
-    </div>
-  )
 }

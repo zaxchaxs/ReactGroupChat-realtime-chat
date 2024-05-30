@@ -9,7 +9,8 @@ export default function ModalGroup({ isShowed, onSubmit, onModalClose }) {
     const newData = {
         name: groupName,
         created_at: new Date(),
-        created_by: user.displayName
+        created_by: user.displayName,
+        uid: user.uid
     };
 
     const handleSubmit = (e) => {
@@ -21,7 +22,7 @@ export default function ModalGroup({ isShowed, onSubmit, onModalClose }) {
 
   return (
     // <div className={`${isShowed ? "" : "hidden"} absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sky-600 rounded-lg shadow-lg p-4 backdrop-blur-md`}>
-    <div className={`${isShowed ? "" : "hidden"} absolute z-10 w-full h-screen backdrop-blur-md`}>
+    <div className={`${isShowed ? "" : "hidden"} absolute z-10 w-full h-screen backdrop-blur-md transition-all`}>
       <div
         className={`absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sky-600 rounded-lg shadow-lg p-4 `}
       >
@@ -29,7 +30,7 @@ export default function ModalGroup({ isShowed, onSubmit, onModalClose }) {
           <h1>Create New Group</h1>
           <button
             onClick={onModalClose}
-            className="p-1 px-3 bg-blue-400 rounded-md mt-2 hover:bg-blue-500 hover:scale-105 transition-all ease-in-out duration-200 text-white font-bold"
+            className="p-1 px-3 bg-blue-400 rounded-md mt-2 hover:bg-blue-600 hover:scale-105 transition-all ease-in-out duration-200 text-white font-bold"
           >
             &times;
           </button>
@@ -64,7 +65,7 @@ export default function ModalGroup({ isShowed, onSubmit, onModalClose }) {
 function ModalBtn({value, handleSubmit, handleClose}) {
     return (
         <button
-            className="p-1 px-3 hover:bg-blue-500 hover:scale-105 transition-all ease-in-out duration-200 bg-blue-400 rounded-md mt-2 text-white font-bold"
+            className="p-1 px-3 hover:bg-blue-600 hover:scale-105 transition-all ease-in-out duration-200 bg-blue-400 rounded-md mt-2 text-white font-bold"
             onClick={handleSubmit ? handleSubmit : handleClose}
         >
         {value}

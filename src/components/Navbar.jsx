@@ -15,7 +15,7 @@ export default function Navbar() {
       </div>
       <div className="flex gap-8 items-center">
         <Button val={"Home"} route={"/"} />
-        <Button val={"Chat"} route={"/chat"} />
+        <Button val={"Chat"} route={"/chat-homepage"} />
         <Button val={"About"} route={"/about"} />
       </div>
       <div className="text-white font-bold text-center text-xl items-center">

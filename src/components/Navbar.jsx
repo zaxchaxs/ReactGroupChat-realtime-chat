@@ -22,7 +22,7 @@ export default function Navbar() {
         <Button
           isBtnLoggin={true}
           val={user ? "Logout" : "Login"}
-          route={user ? "#" : "/Login"}
+          route={user ? "/" : "/"}
           handleClick={user && logoutHandler}
         />
       </div>

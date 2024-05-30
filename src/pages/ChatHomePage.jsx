@@ -5,11 +5,11 @@ import { addDoc, collection, onSnapshot } from "firebase/firestore";
 import Group from "../components/Group";
 import ModalGroup from "../components/ModalCreateGroup";
 import { useAuth } from "../contexts/AuthContext";
-import { auth, db} from "../firebase";
+import { db } from "../firebase";
 import Loader from "../components/Loader";
 
 export default function ChatHomePage() {
-    const { loading: authLoad } = useAuth();
+    const { user, loading: authLoad } = useAuth();
     const [groups, setGroups] = useState([]);
     const [isModalShow, setModalShow] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -25,7 +25,6 @@ export default function ChatHomePage() {
       // unsubscribe();
     }, []);
     
-
     // handleFunctions
     const handleCloseModal = () => {
       setModalShow(false);
@@ -39,8 +38,9 @@ export default function ChatHomePage() {
       setModalShow(false);
     }
 
-
-    if(!auth) {
+    if (authLoad || groups.length == 0) {
+      return <Loader />
+    } else if(!user) {
       return(
         <section
           className={`w-full flex items-center z-20 absolute backdrop-blur-md h-screen justify-center`}
@@ -53,8 +53,6 @@ export default function ChatHomePage() {
           </div>
         </section>
       )
-    } else if (authLoad) {
-      return <Loader />
     } else {
       return (
           <section className={`w-full flex justify-between relative `}>

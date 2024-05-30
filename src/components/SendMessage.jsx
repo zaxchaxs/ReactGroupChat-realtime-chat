@@ -1,5 +1,8 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
+import { addDoc, collection} from "firebase/firestore";
+import { db } from "../firebase";
 
 export default function SendMessage({groupId}) {
     const {user} = useAuth();
@@ -13,14 +16,18 @@ export default function SendMessage({groupId}) {
     };
 
     // handler funtion
-    const handleSubmitMessage = (event) =>{
+    const handleSubmitMessage = async (event) =>{
         event.preventDefault();
         if(message == "") {
             alert("Pesan tidak boleh kosong");
             return;
-        };
-        console.log(user);
-        console.log(newMessage);
+        }
+        try {
+            await addDoc(collection(db, `messages/${groupId}/message`), newMessage)
+        } catch(e) {
+            console.error(e.message);
+        }
+        setMessage("");
     };
 
     return (

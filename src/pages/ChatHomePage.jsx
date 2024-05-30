@@ -1,9 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
-import { addDoc, collection, onSnapshot } from "firebase/firestore";
-import Group from "../components/Group";
-import ModalGroup from "../components/ModalCreateGroup";
+import { collection, onSnapshot } from "firebase/firestore";
 import { useAuth } from "../contexts/AuthContext";
 import { db } from "../firebase";
 import Loader from "../components/Loader";
@@ -14,6 +12,7 @@ export default function ChatHomePage() {
     const [groups, setGroups] = useState([]);
 
     useEffect( () => {
+      // eslint-disable-next-line no-unused-vars
       const unsubscribe = onSnapshot(collection(db, "groups"), (snapshot) => {
         const newData = snapshot.docs.map(doc => ({
           id: doc.id,

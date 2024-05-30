@@ -5,7 +5,6 @@ import { db } from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { useAuth } from "../contexts/AuthContext";
 import Loader from "../components/Loader";
-import { useEffect, useState } from "react";
 
 export default function Home() {
   const { user, loading: authLoad, loginWithGoogleHandler, logoutHandler } = useAuth();

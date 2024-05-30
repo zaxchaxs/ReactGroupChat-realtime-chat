@@ -4,27 +4,22 @@ import ModalGroup from "./ModalCreateGroup";
 import { db } from "../firebase";
 import { useState } from "react";
 import Group from "./Group";
-import { useAuth } from "../contexts/AuthContext";
 
 export default function Groups({groups }) {
     const [isModalShow, setModalShow] = useState(false);
-    const { user } = useAuth();
 
       // handleFunctions
       const handleCloseModal = () => {
         setModalShow(false);
       }
-      const createGroupHandle = (newData) => {
+      const createGroupHandle = async (newData) => {
         try {
-          addDoc(collection(db, "groups"), newData);
+         await addDoc(collection(db, "groups"), newData);
         } catch (e) {
           console.error(e.message);
         }
         setModalShow(false);
       }
-      const testing = () => {
-        console.log(user.uid)
-      };
 
     return (
       <>

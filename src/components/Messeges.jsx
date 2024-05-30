@@ -7,16 +7,15 @@ import Loader from "./Loader";
 export default function Messages({groupId}) {
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(false);
-    const testing = [];
     
     useEffect(() => {
         try {
             setLoading(true);
-            const q = query(collection(db, "messages", groupId);
+            const q = query(collection(db, `messages/${groupId}/message`));
             const unsubscribe = onSnapshot(q, snapshot => {
                 const newMessages = snapshot.docs.map(doc => ({
                     ...doc.data()
-                }));
+                }))
                 setMessages(...messages, newMessages);
             });
         } catch(e) {

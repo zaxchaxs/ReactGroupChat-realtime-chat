@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { GoogleAuthProvider, getAuth, signInWithRedirect, signOut } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { GoogleAuthProvider, getAuth } from "firebase/auth";
+import { GithubAuthProvider } from "firebase/auth/cordova";
 import { getFirestore  } from "firebase/firestore";
 
 
@@ -18,33 +18,9 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-export const provider = new GoogleAuthProvider();
-export const db = getFirestore(app);
 export const auth = getAuth(app);
-
-export const Authentication = () => {
-  const [user] = useAuthState(auth);
-  
-  const googleHandlerLogin = async () => {
-    return await signInWithRedirect(auth, provider)
-  };
-
-  const logoutHandler = () =>{
-    try {
-      signOut(auth);
-    } catch(err) {
-      console.error(err.message)
-    }
-  }
-
-  const method = {
-    user,
-    db, 
-    auth,
-    googleHandlerLogin,
-    logoutHandler,
-  };
-  return method;
-}
+export const db = getFirestore(app);
+export const googleProvider = new GoogleAuthProvider();
+export const githubProvider = new GithubAuthProvider();
 
 export default app;

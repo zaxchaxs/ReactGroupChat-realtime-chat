@@ -3,17 +3,20 @@ import './App.css'
 import Navbar from './components/Navbar';
 import Homepage from './pages/Homepage';
 import ChatHomePage from "./pages/ChatHomePage";
+import { AuthProvider } from "./contexts/AuthContext";
 
 function App() {
 
   return (
     <>
-      <Navbar />
       <Router>
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/chat" element={<ChatHomePage />} />
-        </Routes>
+        <AuthProvider>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/chat" element={<ChatHomePage />} />
+          </Routes>
+        </AuthProvider>
       </Router>
     </>
   )

@@ -27,11 +27,9 @@ export default function ChatHomePage() {
     
 
     // handleFunctions
-
     const handleCloseModal = () => {
       setModalShow(false);
     }
-  
     const createGroupHandle = (newData) => {
       try {
         addDoc(collection(db, "groups"), newData);

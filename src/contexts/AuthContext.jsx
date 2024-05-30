@@ -15,11 +15,27 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   const loginWithGoogleHandler = async () => {
-    return await signInWithRedirect(auth, googleProvider);
+    try {
+      setLoading(true);
+      await signInWithRedirect(auth, googleProvider);
+    } catch (e) {
+      alert(e.message);
+      console.error(e.message);
+    } finally {
+      setLoading(false);
+    }
   };
-
+  
   const loginWithGithubHandler = async () => {
-    return await signInWithRedirect(auth, githubProvider);
+    try {
+      setLoading(true);
+      await signInWithRedirect(auth, githubProvider);
+    } catch (e) {
+      alert(e.message);
+      console.error(e.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const logoutHandler = () => {
@@ -35,6 +51,9 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     if (user) setLoading(false);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
   }, [user]);
 
   const authContextValue = {

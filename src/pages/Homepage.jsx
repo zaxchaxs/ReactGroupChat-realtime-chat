@@ -8,8 +8,7 @@ import Loader from "../components/Loader";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const { user, loading: authLoad, loginWithGoogleHandler } = useAuth();
-  const [loading, setLoading] = useState(false);
+  const { user, loading: authLoad, loginWithGoogleHandler, logoutHandler } = useAuth();
 
   const testingHandle = async () => {
     try {
@@ -23,7 +22,7 @@ export default function Home() {
     }
   };
 
-  if (authLoad || loading) {
+  if (authLoad) {
     return <Loader />;
   }
 
@@ -45,7 +44,7 @@ export default function Home() {
             <Button val={"Login"} handleClick={testingHandle} />
             <Button
               val={`${user ? "Logout" : "Login with google"}`}
-              handleClick={loginWithGoogleHandler}
+              handleClick={ user ? logoutHandler : loginWithGoogleHandler}
             />
           </div>
         </div>

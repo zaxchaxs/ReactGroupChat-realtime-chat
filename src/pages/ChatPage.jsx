@@ -1,11 +1,13 @@
 /* eslint-disable no-unused-vars */
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot} from "firebase/firestore";
 import { useEffect, useState } from "react"
 import { db } from "../firebase";
 import { useAuth } from "../contexts/AuthContext";
 import Loader from "../components/Loader";
 import Button from "../components/Button";
 import Groups from "../components/Groups";
+import Messages from "../components/Messeges";
+import SendMessage from "../components/SendMessage";
 
 export default function ChatPage() {
     const [ groups, setGroups] = useState([]);
@@ -41,32 +43,18 @@ export default function ChatPage() {
           </section>
         );
       } else {
-        return(
-            <section className="w-full flex justify-between relative">
-                <Groups groups={groups} />
-                <div className="w-full pt-20 bg-gray-300 relative  items-center overflow-y-scroll h-screen">
-                    <form className="fixed flex w-full bottom-0 p-4 bg-gray-400 rounded-t-xl gap-4">
-                        <input type="text" className="w-full p-2 rounded-lg" placeholder="Type a message"></input>
-                        <button className="p-1 px-3 bg-blue-500 rounded-md font-bold text-white hover:scale-105 transition-all ease-in-out duration-200">Send</button>
-                    </form>
-
-                    <h1>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos sint eaque, distinctio, possimus dicta corrupti animi nihil qui expedita adipisci, reiciendis nulla quam aliquam aspernatur! Cum saepe animi error facilis.</h1>
-                    <h1>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos sint eaque, distinctio, possimus dicta corrupti animi nihil qui expedita adipisci, reiciendis nulla quam aliquam aspernatur! Cum saepe animi error facilis.</h1>
-                    <h1>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos sint eaque, distinctio, possimus dicta corrupti animi nihil qui expedita adipisci, reiciendis nulla quam aliquam aspernatur! Cum saepe animi error facilis.</h1>
-                    <h1>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos sint eaque, distinctio, possimus dicta corrupti animi nihil qui expedita adipisci, reiciendis nulla quam aliquam aspernatur! Cum saepe animi error facilis.</h1>
-                    <h1>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos sint eaque, distinctio, possimus dicta corrupti animi nihil qui expedita adipisci, reiciendis nulla quam aliquam aspernatur! Cum saepe animi error facilis.</h1>
-                    <h1>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos sint eaque, distinctio, possimus dicta corrupti animi nihil qui expedita adipisci, reiciendis nulla quam aliquam aspernatur! Cum saepe animi error facilis.</h1>
-                    <h1>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos sint eaque, distinctio, possimus dicta corrupti animi nihil qui expedita adipisci, reiciendis nulla quam aliquam aspernatur! Cum saepe animi error facilis.</h1>
-                    <h1>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos sint eaque, distinctio, possimus dicta corrupti animi nihil qui expedita adipisci, reiciendis nulla quam aliquam aspernatur! Cum saepe animi error facilis.</h1>
-                    <h1>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos sint eaque, distinctio, possimus dicta corrupti animi nihil qui expedita adipisci, reiciendis nulla quam aliquam aspernatur! Cum saepe animi error facilis.</h1>
-                    <h1>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos sint eaque, distinctio, possimus dicta corrupti animi nihil qui expedita adipisci, reiciendis nulla quam aliquam aspernatur! Cum saepe animi error facilis.</h1>
-                    <h1>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos sint eaque, distinctio, possimus dicta corrupti animi nihil qui expedita adipisci, reiciendis nulla quam aliquam aspernatur! Cum saepe animi error facilis.</h1>
-                    <h1>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos sint eaque, distinctio, possimus dicta corrupti animi nihil qui expedita adipisci, reiciendis nulla quam aliquam aspernatur! Cum saepe animi error facilis.</h1>
-                    <h1>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos sint eaque, distinctio, possimus dicta corrupti animi nihil qui expedita adipisci, reiciendis nulla quam aliquam aspernatur! Cum saepe animi error facilis.</h1>
-                    <h1>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos sint eaque, distinctio, possimus dicta corrupti animi nihil qui expedita adipisci, reiciendis nulla quam aliquam aspernatur! Cum saepe animi error facilis.</h1>
-                    <h1>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos sint eaque, distinctio, possimus dicta corrupti animi nihil qui expedita adipisci, reiciendis nulla quasm aliquam aspernatur! Cum saepe animi error facilis.</h1>
-                </div>
-            </section>
-        )
+        return (
+          <section className="w-full flex justify-between relative">
+            <Groups groups={groups} />
+            <div className="w-full pt-20 bg-gray-300 relative items-center flex flex-col overflow-y-scroll h-screen ">
+              <div className="w-full h-screen overflow-y-scroll mb-20">
+                <Messages groupId={groupId} />
+              </div>
+              <div className="w-full left-0 absolute bottom-0">
+                <SendMessage groupId={groupId} />
+              </div>
+            </div>
+          </section>
+        );
       }
 }

@@ -48,10 +48,10 @@ export default function ChatPage() {
         );
       } else {
         return (
-          <section className="w-full flex justify-between relative">
+          <section className="w-full flex justify-between relative bg-slate-200">
             <Groups groups={groups} getGroupId={handleGroupClick} />
-            <div className="w-full pt-20 bg-gray-300 relative items-center flex flex-col overflow-y-scroll h-screen ">
-              <div className="w-full h-screen overflow-y-scroll mb-20">
+            <div className="w-full pt-20 relative items-center flex flex-col overflow-y-scroll h-screen ">
+              <div className="w-full h-screen overflow-y-hidden mb-20">
                 <Messages groupId={groupId} />
               </div>
               <div className="w-full left-0 absolute bottom-0">

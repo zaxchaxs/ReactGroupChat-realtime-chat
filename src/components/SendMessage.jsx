@@ -31,7 +31,7 @@ export default function SendMessage({groupId}) {
     };
 
     return (
-      <form className="flex p-4 bg-gray-400 rounded-t-xl gap-4" onSubmit={(e) => handleSubmitMessage(e)}>
+      <form className="flex p-4 bg-gray-300 rounded-t-xl gap-4" onSubmit={(e) => handleSubmitMessage(e)}>
         <input
           type="text"
           className="w-full p-2 rounded-lg"

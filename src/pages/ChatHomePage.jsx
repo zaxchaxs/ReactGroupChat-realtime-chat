@@ -40,7 +40,7 @@ export default function ChatHomePage() {
       )
     } else {
       return (
-          <section className={`w-full flex justify-between relative bg-gray-300`}>
+          <section className={`w-full flex justify-between relative`}>
 
             <Groups groups={groups} />  
             <div className="w-full flex items-center text-center m-2">

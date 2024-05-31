@@ -48,8 +48,8 @@ export default function Groups({groups, getGroupId }) {
 
 function CreateGrupBtn({onCreateGroupClick}) {
     return (
-      <div onClick={onCreateGroupClick} className="p-4 font-bold text-slate-100">
-        <button className="p-2 px-4 rounded-lg bg-sky-600 hover:scale-105 transition-all ease-in-out duration-200 active:scale-100">Create Group</button>
+      <div className="p-4 font-bold text-slate-100">
+        <button onClick={onCreateGroupClick} className="p-2 px-4 rounded-lg bg-sky-600 hover:scale-105 transition-all ease-in-out duration-200 active:scale-100">Create Group</button>
       </div>
     )
   }

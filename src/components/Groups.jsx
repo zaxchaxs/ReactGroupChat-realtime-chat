@@ -5,7 +5,7 @@ import { db } from "../firebase";
 import { useState } from "react";
 import Group from "./Group";
 
-export default function Groups({groups }) {
+export default function Groups({groups, getGroupId }) {
     const [isModalShow, setModalShow] = useState(false);
 
       // handleFunctions
@@ -38,7 +38,7 @@ export default function Groups({groups }) {
                 </h1>
               </div>
             ) : (
-              <Group data={groups} />
+              <Group data={groups} getGroupId={getGroupId} />
             )}
           </div>
         </div>

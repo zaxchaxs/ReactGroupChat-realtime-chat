@@ -12,6 +12,7 @@ import SendMessage from "../components/SendMessage";
 export default function ChatPage() {
     const [ groups, setGroups] = useState([]);
     const [ groupId, setGroupId] = useState("");
+    const [ currId, setCurrId] = useState("");
     const { user, loading: authload} = useAuth();
     // const queryParams = new URLSearchParams(location.search);
 
@@ -28,6 +29,11 @@ export default function ChatPage() {
           }));
           setGroups(newData);
         });
+
+        // get backup id by query params
+        const queryParams = new URLSearchParams(location.search);
+        const id = queryParams.get("groupId");
+        setCurrId(id);
         // unsubscribe();
       }, []);
 
@@ -52,7 +58,7 @@ export default function ChatPage() {
             <Groups groups={groups} getGroupId={handleGroupClick} />
             <div className="w-full pt-20 relative items-center flex flex-col overflow-y-scroll h-screen ">
               <div className="w-full h-screen overflow-y-hidden mb-20">
-                <Messages groupId={groupId} />
+                <Messages groupId={groupId} currId={currId} />
               </div>
               <div className="w-full left-0 absolute bottom-0">
                 <SendMessage groupId={groupId} />

@@ -5,7 +5,7 @@ import { db } from "../firebase";
 import Loader from "./Loader";
 import { useAuth } from "../contexts/AuthContext";
 
-export default function Messages({ groupId }) {
+export default function Messages({ groupId, currId }) {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
@@ -41,14 +41,15 @@ export default function Messages({ groupId }) {
       uid: "123",
     },
   ];
-
+  
   useEffect(() => {
     try {
       setLoading(true);
       const q = query(
-        collection(db, `messages/${groupId}/message`),
+        collection(db, `messages/${groupId ? groupId : currId}/message`),
         orderBy("created_at", "asc")
       );
+
       // eslint-disable-next-line no-unused-vars
       const unsubscribe = onSnapshot(q, (snapshot) => {
         if (snapshot.docs.length != 0) {
@@ -66,6 +67,7 @@ export default function Messages({ groupId }) {
       setLoading(false);
     }
   }, [groupId]);
+
 
   if (loading) {
     return <Loader onMessage={true} />;
@@ -93,7 +95,7 @@ function Message({ data, author }) {
     return data.map((e, i) => {
     return (
       <div className={`w-full px-10 flex ${e.uid == author ? "justify-end" : "justify-start"}`} key={i}>
-        <div className="w-fit  px-5 p-1 bg-blue-400 rounded-xl text-[13px] text-left">
+        <div className={`w-fit  px-5 p-1 ${e.uid == author ? "bg-blue-500" : "bg-blue-400"} rounded-xl text-[13px] text-left`}>
           <h1 className="font-bold text-blue-950 w-full border-b-2 border-blue-950 p-[3px]">
             {e.created_by}
           </h1>

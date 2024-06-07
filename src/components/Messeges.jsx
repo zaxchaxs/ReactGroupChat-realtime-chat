@@ -9,38 +9,6 @@ export default function Messages({ groupId, currId }) {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
-  const tempData = [
-    {
-      created_by: "Marsha",
-      message: "Hallo there",
-      uid: "123",
-    },
-    {
-      created_by: "Marsha Aprilia",
-      message: "Hi there too",
-      uid: "123",
-    },
-    {
-      created_by: "Marsha",
-      message: "Watchu doing?",
-      uid: "123",
-    },
-    {
-      created_by: "Marsha Aprilia",
-      message: "Nothing..",
-      uid: "123",
-    },
-    {
-      created_by: "Marsha",
-      message: "Nothing what?",
-      uid: "123",
-    },
-    {
-      created_by: "Marsha Aprilia",
-      message: "Nothing.. just an accident",
-      uid: "123",
-    },
-  ];
   
   useEffect(() => {
     try {
@@ -64,7 +32,9 @@ export default function Messages({ groupId, currId }) {
     } catch (e) {
       console.error(e.message);
     } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     }
   }, [groupId]);
 
@@ -80,11 +50,7 @@ export default function Messages({ groupId, currId }) {
       </div>
     ) : (
       <div className="w-full h-full flex flex-col gap-4 overflow-x-hidden py-5">
-        {messages.length ? (
-          <Message data={messages} author={user.uid} />
-        ) : (
-          <Message data={tempData} author={tempData.uid} />
-        )}
+        <Message data={messages} author={user.uid} />
       </div>
     );
   }

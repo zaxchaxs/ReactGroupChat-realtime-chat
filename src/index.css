@@ -29,3 +29,27 @@
   @keyframes l15{ 
     100%{transform: rotate(1turn)}
   }
+
+  .button-three {
+    --button-color: rgb(252, 252, 252);
+    overflow: hidden;
+  }
+  
+  .button-three .hamburger {
+    transition: translate 1s, rotate 1s;
+  }
+  
+  .button-three[aria-expanded="true"] .hamburger {
+    --button-color: white;
+    rotate: 0.125turn;
+  }
+  
+  .button-three .line {
+    transition: 1s;
+    stroke-dasharray: 60 31 60 300;
+  }
+  
+  .button-three[aria-expanded="true"] .line {
+    stroke-dasharray: 60 105 60 300;
+    stroke-dashoffset: -90;
+  }

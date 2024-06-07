@@ -27,16 +27,16 @@ export default function Home() {
 
   return (
     <section className="p-4 w-full pt-20">
-      <div className="flex justify-between items-center">
+      <div className="md:flex justify-between items-center">
         {/* image */}
-        <div className="w-full items-center flex justify-center p-24">
+        <div className="md:w-full w-[40vh] mx-auto items-center flex justify-center p-10 md:p-24">
           <img src={testingLogo} alt="testing" width={300} />
         </div>
 
         {/* detail */}
-        <div className={`p-4 text-gray-800 font-bold w-full `}>
+        <div className={`p-4 text-gray-800 font-bold w-full`}>
           <h1 className="text-3xl p-2">Create Your Circle Group</h1>
-          <h2 className="text-xl p-2 font-normal">
+          <h2 className="text-xl p-2 font-bold">
             Start chit chat with your friends.
           </h2>
           <div className="flex gap-7 p-2 my-10 justify-center">

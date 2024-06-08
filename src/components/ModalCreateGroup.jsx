@@ -1,36 +1,47 @@
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
+import icons from "../../public/json/icons.json";
 
 /* eslint-disable react/prop-types */
 export default function ModalGroup({ isShowed, onSubmit, onModalClose }) {
     const { user } = useAuth();
     const [groupName, setGroupName] = useState("");
+    const [isShowIcon, setShowIcon] = useState(false);
 
     const newData = {
         name: groupName,
         created_at: new Date(),
         created_by: user.displayName,
-        uid: user.uid
+        uid: user.uid,
+        photoURL: user.photoURL
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         onSubmit(newData);
         setGroupName("");
+    };
+
+    const handleSetIconClick = () => {
+      setShowIcon(!isShowIcon);
     }
 
 
   return (
     // <div className={`${isShowed ? "" : "hidden"} absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sky-600 rounded-lg shadow-lg p-4 backdrop-blur-md`}>
-    <div className={`${isShowed ? "" : "hidden"} absolute z-10 w-full h-screen backdrop-blur-md transition-all`}>
+    <div
+      className={`${
+        isShowed ? "" : "hidden"
+      } absolute z-10 w-full h-screen backdrop-blur-md transition-all`}
+    >
       <div
         className={`absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sky-600 rounded-lg shadow-lg p-4 `}
       >
-        <div className="font-bold text-xl p-2 px-4 text-white flex justify-between items-center gap-4 border-b-2">
+        <div className="font-bold text-lg md:text-xl p-2 px-4 text-white flex justify-between gap-4 border-b-2">
           <h1>Create New Group</h1>
           <button
             onClick={onModalClose}
-            className="p-1 px-3 bg-blue-400 rounded-md mt-2 hover:bg-blue-600 hover:scale-105 transition-all ease-in-out duration-200 text-white font-bold"
+            className="h-fit p-1 px-3 bg-blue-400 rounded-md mt-2 hover:bg-blue-600 transition-all ease-in-out duration-200 text-white font-bold"
           >
             &times;
           </button>
@@ -48,20 +59,24 @@ export default function ModalGroup({ isShowed, onSubmit, onModalClose }) {
           </form>
         </div>
         <div className="p-4">
-          <ModalBtn value={"Set Icon"} />
+          <ModalBtn value={"Set Icon"} handleSubmit={handleSetIconClick} />
           {/* icon sec */}
+          <div className={`${isShowIcon ? "" : "hidden"} flex gap-4 p-4 w-full justify-center`}>
+            {icons.data.map((e, i) => {
+              return <Icon key={i} data={e.source} />;
+            })}
+          </div>
         </div>
         <div className="flex gap-2 justify-end border-t-2">
-            <ModalBtn value={"Close"} handleClose={onModalClose} />
-            <ModalBtn value={"Submit"} handleSubmit={handleSubmit} />
-
-        </div >
+          <ModalBtn value={"Close"} handleClose={onModalClose} />
+          <ModalBtn value={"Submit"} handleSubmit={handleSubmit} />
+        </div>
       </div>
     </div>
   );
 }
 
-
+// Child components
 function ModalBtn({value, handleSubmit, handleClose}) {
     return (
         <button
@@ -71,4 +86,12 @@ function ModalBtn({value, handleSubmit, handleClose}) {
         {value}
         </button>
     )
+}
+
+function Icon({data}) {
+  return(
+    <div className="w-full rounded-full p-6 bg-slate-400">
+      <img src={data} alt="icons" className="" />
+    </div>
+  )
 }

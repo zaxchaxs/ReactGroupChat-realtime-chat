@@ -37,9 +37,12 @@ export default function Groups({groups, getGroupId }) {
                   There no groups yet, create one.
                 </h1>
               </div>
-            ) : (
-              <Group data={groups} getGroupId={getGroupId} />
-            )}
+            ) : 
+            groups.map((data) => <Group key={data.id} data={data} getGroupId={getGroupId} />)
+            // (
+            //   <Group data={groups} getGroupId={getGroupId} />
+            // )
+            }
           </div>
         </div>
       </>

@@ -43,7 +43,7 @@ export default function ChatHomePage() {
           <section className={`w-full md:flex justify-between relative`}>
 
             <Groups groups={groups} />  
-            <div className="w-full flex items-center text-center m-2">
+            <div className="w-full hidden md:flex items-center text-center m-2">
               <div className="w-full text-lg text-sky-800 font-bold">
                 <h1>
                   Start chit chat by creating your own group or join to your

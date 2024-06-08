@@ -28,7 +28,7 @@ export default function Groups({groups, getGroupId }) {
           onSubmit={createGroupHandle}
           onModalClose={handleCloseModal}
         />
-        <div className="bg-blue-400 w-2/4 h-screen overflow-y-scroll pt-20 ">
+        <div className="bg-blue-400 md:w-2/4 h-screen overflow-y-scroll pt-20 ">
           <div className="w-full h-ful items-center">
             <CreateGrupBtn onCreateGroupClick={() => setModalShow(true)} />
             {groups.length == 0 ? (

@@ -1,25 +1,10 @@
 import Button from "../components/Button";
 import testingLogo from "../assets/react.svg";
-
-import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
 import { useAuth } from "../contexts/AuthContext";
 import Loader from "../components/Loader";
 
 export default function Home() {
   const { user, loading: authLoad, loginWithGoogleHandler, logoutHandler } = useAuth();
-
-  const testingHandle = async () => {
-    try {
-      const querySnapshot = await getDocs(collection(db, "users"));
-      querySnapshot.forEach((doc) => {
-        const { first } = doc.data();
-        console.log(first);
-      });
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
 
   if (authLoad) {
     return <Loader />;
@@ -40,7 +25,7 @@ export default function Home() {
             Start chit chat with your friends.
           </h2>
           <div className="flex gap-7 p-2 my-10 justify-center">
-            <Button val={"Login"} handleClick={testingHandle} />
+            <Button val={"Start Chat"} route={"/chat-homepage"} isHidden={user ? false : true} />
             <Button
               val={`${user ? "Logout" : "Login with google"}`}
               handleClick={ user ? logoutHandler : loginWithGoogleHandler}

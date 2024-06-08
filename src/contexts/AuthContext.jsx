@@ -3,6 +3,7 @@ import { signInWithRedirect, signOut } from "firebase/auth";
 import { useContext, createContext, useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, githubProvider, googleProvider } from "../firebase";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
@@ -13,6 +14,8 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [user] = useAuthState(auth);
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   const loginWithGoogleHandler = async () => {
     try {
@@ -42,6 +45,7 @@ export function AuthProvider({ children }) {
     try {
       setLoading(true);
       signOut(auth);
+      navigate("/");
     } catch (e) {
       console.error(e.message);
     } finally {

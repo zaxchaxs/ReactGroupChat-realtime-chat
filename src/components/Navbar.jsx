@@ -1,21 +1,28 @@
 /* eslint-disable react/prop-types */
 
 // import { Authentication } from "../firebase";
-import { useState } from "react";
-import { useAuth } from "../contexts/AuthContext"
+import { useEffect, useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
 import Button from "./Button";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [isNavOpen, setNavOpen] = useState(false);
   const { user, logoutHandler } = useAuth();
 
+  // handler function
   const handleHumBtn = () => {
     setNavOpen(!isNavOpen);
   };
 
+  useEffect(() => {
+    setNavOpen(false);
+  }, [user])
+
+
   return (
     <div className="p-5 bg-sky-600 justify-between flex fixed w-full z-20 items-center">
-      <div className="w-fit text-white font-bold text-center text-lg md:text-2xl">
+      <div className="w-fit text-white font-bold text-center text-lg md:text-2xl z-50">
         <a href="/">ReactGroup Chat</a>
       </div>
       <div className="md:flex hidden md:gap-8 items-center">
@@ -27,7 +34,6 @@ export default function Navbar() {
         <Button
           isBtnLoggin={true}
           val={user ? "Logout" : "Login"}
-          route={user ? "/" : "/"}
           handleClick={user && logoutHandler}
         />
       </div>
@@ -35,48 +41,55 @@ export default function Navbar() {
         <HumbergerBtn onHumBtnClick={handleHumBtn} isNavOpen={isNavOpen} />
       </div>
       <div className="absolute top-0 h-screen">
-        <NavItems isNavOpen={isNavOpen} onButtonClick={handleHumBtn} />
+        <NavItems isNavOpen={isNavOpen} onButtonClick={handleHumBtn} user={user} handleLogoutClick={logoutHandler} />
       </div>
     </div>
   );
 }
 
-
 // Child Components
 
-function HumbergerBtn({isNavOpen, onHumBtnClick}) {
-  return(
-      <button className=" button-three" aria-controls="primary-navigation" aria-expanded={isNavOpen ? "true" : "false"} onClick={onHumBtnClick} >
-          <svg stroke="var(--button-color)" fill="none" className="hamburger w-10" viewBox="-10 -10 120 120">
-              <path className="line" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" d="m 20 40 h 60 a 1 1 0 0 1 0 20 h -60 a 1 1 0 0 1 0 -40 h 30 v 70">
-              </path>
-          </svg>
-      </button>
-  )
+function HumbergerBtn({ isNavOpen, onHumBtnClick }) {
+  return (
+    <button
+      className=" button-three"
+      aria-controls="primary-navigation"
+      aria-expanded={isNavOpen ? "true" : "false"}
+      onClick={onHumBtnClick}
+    >
+      <svg
+        stroke="var(--button-color)"
+        fill="none"
+        className="hamburger w-10"
+        viewBox="-10 -10 120 120"
+      >
+        <path
+          className="line"
+          strokeWidth="10"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="m 20 40 h 60 a 1 1 0 0 1 0 20 h -60 a 1 1 0 0 1 0 -40 h 30 v 70"
+        ></path>
+      </svg>
+    </button>
+  );
 }
 
-function NavItems({ isNavOpen, onButtonClick}) {
-
-	return (
+function NavItems({ isNavOpen, onButtonClick, user, handleLogoutClick }) {
+  return (
     <>
       <nav
-        className={`fixed z-[45] items-center justify-center backdrop-blur-sm transition-all w-screen ease-in-out duration-700 overflow-hidden ${isNavOpen ? "" : "hidden"}`}
+        className={`fixed z-30 items-center justify-center backdrop-blur-sm transition-all w-screen ease-in-out duration-700 overflow-hidden ${
+          isNavOpen ? "" : "hidden"
+        }`}
       >
-        <div className="relative  backdrop-blur-sm opacity-95 flex flex-col items-center space-x-8 w-screen h-screen bg-gray-700">
+        <div className="relative backdrop-blur-sm bg-opacity-80 flex flex-col items-center space-x-8 w-screen h-screen bg-sky-600">
           <div className="flex flex-col items-center space-y-8 my-auto mx-0">
-            <h1
-              className="text-6xl font-bold text-white "
-            >
-              Menu
-            </h1>
-            {/* <MenuButton onButtonClick={onButtonClick} delay={1.1} menu={"Home"} itemVariants={itemVariants} isNavOpen={isNavOpen} routes={"/#home"} index={1} /> */}
-						{/* <MenuButton onButtonClick={onButtonClick} delay={1.2} menu={"About"} itemVariants={itemVariants} isNavOpen={isNavOpen} routes={"/#about"} index={2} /> */}
-						{/* <MenuButton onButtonClick={onButtonClick} delay={1.3} menu={"Projects"} itemVariants={itemVariants} isNavOpen={isNavOpen} routes={"/#projects"} index={3} /> */}
-						{/* <MenuButton onButtonClick={onButtonClick} delay={1.4} menu={"Contact"} itemVariants={itemVariants} isNavOpen={isNavOpen} routes={"/#contact"} index={4} /> */}
-            <MenuButton val={"Home"} />
-            <MenuButton val={"Home"} />
-            <MenuButton val={"Home"} />
-            <MenuButton val={"Home"} />
+            <h1 className="text-6xl font-bold text-white ">Menu</h1>
+            <MenuButton val={"Home"} route={"/"} onMenuClick={onButtonClick} />
+            <MenuButton val={"Chat"} route={"/chat-homepage"} onMenuClick={onButtonClick} />
+            <MenuButton val={"About"} route={"/about"} onMenuClick={onButtonClick} />
+            <MenuButton val={user ? "Logout" : "Login"} route={"/"} onMenuClick={user ? handleLogoutClick : onButtonClick} />
           </div>
         </div>
       </nav>
@@ -84,12 +97,10 @@ function NavItems({ isNavOpen, onButtonClick}) {
   );
 }
 
-function MenuButton({val}) {
+function MenuButton({ val, route, onMenuClick }) {
   return (
-    <div className="cursor-pointer text-2xl text-white font-bold p-2 hover:scale-105 duration-200 transition-all ease-in-out">
-      <h1>
-        {val}
-      </h1>
-    </div>
-  )
+    <Link to={route} className="text-2xl text-white font-bold p-2 hover:scale-105 duration-200 transition-all ease-in-out" onClick={onMenuClick}>
+      <h1>{val}</h1>
+    </Link>
+  );
 }

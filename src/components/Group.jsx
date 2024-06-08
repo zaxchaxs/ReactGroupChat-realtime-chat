@@ -19,6 +19,11 @@ export default function Group({ data, getGroupId }) {
     }
   }
 
+//   resolution setting for lengthMessage
+  useEffect(() => {
+
+  },[])
+
   useEffect(() => {
     const q = query(
       collection(db, `messages/${data.id}/message`),

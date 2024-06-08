@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import icons from "../../public/json/icons.json";
 
 /* eslint-disable react/prop-types */
 export default function ModalGroup({ isShowed, onSubmit, onModalClose }) {
     const { user } = useAuth();
     const [groupName, setGroupName] = useState("");
-    const [isShowIcon, setShowIcon] = useState(false);
 
     const newData = {
         name: groupName,
@@ -21,11 +19,6 @@ export default function ModalGroup({ isShowed, onSubmit, onModalClose }) {
         onSubmit(newData);
         setGroupName("");
     };
-
-    const handleSetIconClick = () => {
-      setShowIcon(!isShowIcon);
-    }
-
 
   return (
     // <div className={`${isShowed ? "" : "hidden"} absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sky-600 rounded-lg shadow-lg p-4 backdrop-blur-md`}>
@@ -58,15 +51,6 @@ export default function ModalGroup({ isShowed, onSubmit, onModalClose }) {
             ></input>
           </form>
         </div>
-        <div className="p-4">
-          <ModalBtn value={"Set Icon"} handleSubmit={handleSetIconClick} />
-          {/* icon sec */}
-          <div className={`${isShowIcon ? "" : "hidden"} flex gap-4 p-4 w-full justify-center`}>
-            {icons.data.map((e, i) => {
-              return <Icon key={i} data={e.source} />;
-            })}
-          </div>
-        </div>
         <div className="flex gap-2 justify-end border-t-2">
           <ModalBtn value={"Close"} handleClose={onModalClose} />
           <ModalBtn value={"Submit"} handleSubmit={handleSubmit} />
@@ -86,12 +70,4 @@ function ModalBtn({value, handleSubmit, handleClose}) {
         {value}
         </button>
     )
-}
-
-function Icon({data}) {
-  return(
-    <div className="w-full rounded-full p-6 bg-slate-400">
-      <img src={data} alt="icons" className="" />
-    </div>
-  )
 }

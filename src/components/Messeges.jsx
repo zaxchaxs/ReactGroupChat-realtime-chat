@@ -24,7 +24,7 @@ export default function Messages({ groupId, currId }) {
           const newMessages = snapshot.docs.map((doc) => ({
             ...doc.data(),
           }));
-          setMessages(...messages, newMessages);
+          setMessages(newMessages);
         } else {
           setMessages([]);
         }
@@ -58,6 +58,7 @@ export default function Messages({ groupId, currId }) {
 
 // child component
 function Message({ data, author }) {
+  // return "console.log(data)";
     return data.map((e, i) => {
     return (
       <div className={`w-full px-10 flex ${e.uid == author ? "justify-end" : "justify-start"}`} key={i}>

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 
 export default function Group({data, getGroupId}) {
+    console.log(data);
 
     return data.map((group, i) => {
         return <Link to={`/chat-page?groupId=${group.id}`} onClick={() => getGroupId(group.id)} key={i} >

@@ -8,6 +8,8 @@ import Button from "../components/Button";
 import Groups from "../components/Groups";
 import Messages from "../components/Messeges";
 import SendMessage from "../components/SendMessage";
+import { Link } from "react-router-dom";
+import backArrow from "../../public/icons/back-icon.svg"
 
 export default function ChatPage() {
     const [ groups, setGroups] = useState([]);
@@ -66,11 +68,20 @@ export default function ChatPage() {
       } else {
         return (
           <section className="w-full flex justify-between relative bg-slate-200">
-            {
-              isMobile ? "" : <Groups groups={groups} getGroupId={handleGroupClick} isChatPage={true} />
-            }
+            {isMobile ? (
+              ""
+            ) : (
+              <Groups
+                groups={groups}
+                getGroupId={handleGroupClick}
+                isChatPage={true}
+              />
+            )}
 
-            <div className="w-full pt-20 relative items-center flex flex-col overflow-y-scroll h-screen ">
+            <div className="w-full pt-20 relative items-center flex flex-col overflow-y-scroll h-screen border-2 border-black">
+              <Link to={"/chat-homepage"} className={`absolute left-4 top-24 md:hidden items-center justify-center flex `} >
+                <img className="w-7" src={backArrow} alt="Back" />
+              </Link>
               <div className="w-full h-screen overflow-y-hidden mb-20">
                 <Messages groupId={groupId} currId={currId} />
               </div>

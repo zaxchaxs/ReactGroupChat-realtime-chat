@@ -21,7 +21,7 @@ export default function Navbar() {
 
 
   return (
-    <div className="p-5 bg-sky-600 justify-between flex fixed w-full z-20 items-center">
+    <div className="p-4 md:p-5 bg-sky-600 justify-between flex fixed w-full z-20 items-center">
       <div className="w-fit text-white font-bold text-center text-lg md:text-2xl z-50">
         <a href="/">ReactGroup Chat</a>
       </div>

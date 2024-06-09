@@ -34,19 +34,15 @@ export default function Messages({ groupId, currId }) {
     } catch (e) {
       console.error(e.message);
     } finally {
-      setTimeout(() => {
-        setLoading(false);
-      }, 300);
+      setLoading(false);
     }
   }, [groupId]);
 
   // scrolling when theres a new messages
   useEffect(() => {
-    setTimeout(() => {
       if (scrollRef.current ) {
         scrollRef.current.scrollIntoView({ behavior: "smooth" });
       }
-    }, 350);
   }, [messages]);
 
   if (loading) {
@@ -73,12 +69,12 @@ function Message({ data, author }) {
     return (
       <div
         className={`w-full px-5 flex ${
-          e.uid == author ? "justify-end pl-16" : "justify-start pr-16"
+          e.uid == author ? "justify-end pl-20 md:pl-48" : "justify-start pr-20 md:pr-48"
         }`}
         key={i}
       >
         <div
-          className={`w-fit  px-5 p-1 ${
+          className={`w-fit px-5 p-1 ${
             e.uid == author ? "bg-blue-500" : "bg-blue-400"
           } rounded-xl text-[13px] text-left`}
         >

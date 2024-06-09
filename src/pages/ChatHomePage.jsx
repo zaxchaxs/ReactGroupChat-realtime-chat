@@ -24,7 +24,7 @@ export default function ChatHomePage() {
       // unsubscribe();
     }, []);
     
-    if (authLoad || groups.length == 0) {
+    if (authLoad || groups.length == 0 ) {
       return <Loader />
     } else if(!user) {
       return(

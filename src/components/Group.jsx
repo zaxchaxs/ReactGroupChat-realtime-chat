@@ -52,22 +52,10 @@ export default function Group({ data, getGroupId, index }) {
           alt={data.created_by}
         />
         <div>
-          <h1 className="text-xl font-bold">{data.name}</h1>
-          <p className="text-[15px]">{lastMessage}</p>
+          <h1 className="text-base md:text-base font-bold">{data.name}</h1>
+          <p className="text-[13px] md:text-sm">{lastMessage}</p>
         </div>
       </div>
     </Link>
   );
-
-  // return data.map((group, i) => {
-  //     return <Link to={`/chat-page?groupId=${group.id}`} onClick={() => getGroupId(group.id)} key={i} >
-  //         <div className={`w-full p-4 text-left text-slate-200 rounded-md ${i % 2 == 0 ? "bg-sky-600" : "border-y-2 border-sky-600"} hover:scale-105 duration-200 transition-all ease-in-out flex items-center gap-4`}>
-  //             <img className="rounded-full w-12" src={group.photoURL} alt={group.created_by} />
-  //             <div>
-  //                 <h1 className="text-xl font-bold">{group.name}</h1>
-  //                 <p>{group.created_by}</p>
-  //             </div>
-  //         </div>
-  //     </Link>
-  // })
 }

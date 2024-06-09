@@ -23,11 +23,11 @@ export default function SendMessage({groupId}) {
             return;
         }
         try {
-            await addDoc(collection(db, `messages/${groupId}/message`), newMessage)
+            setMessage("");
+            addDoc(collection(db, `messages/${groupId}/message`), newMessage)
         } catch(e) {
             console.error(e.message);
         }
-        setMessage("");
     };
 
     return (

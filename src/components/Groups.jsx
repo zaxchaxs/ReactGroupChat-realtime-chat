@@ -37,11 +37,13 @@ export default function Groups({groups, getGroupId }) {
                   There no groups yet, create one.
                 </h1>
               </div>
-            ) : 
-            groups.map((data) => <Group key={data.id} data={data} getGroupId={getGroupId} />)
-            // (
-            //   <Group data={groups} getGroupId={getGroupId} />
-            // )
+            ) : (
+              <div className="w-full overflow-hidden">
+                {
+                  groups.map((data, idx) => <Group key={idx} index={idx} data={data} getGroupId={getGroupId} />)
+                }
+              </div>
+            )
             }
           </div>
         </div>

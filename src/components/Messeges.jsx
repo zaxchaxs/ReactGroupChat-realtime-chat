@@ -8,13 +8,12 @@ import { useAuth } from "../contexts/AuthContext";
 
 export default function Messages({ groupId, currId }) {
   const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { user } = useAuth();
   const scrollRef = useRef(null);
 
   useEffect(() => {
     try {
-      setLoading(true);
       const q = query(
         collection(db, `messages/${groupId ? groupId : currId}/message`),
         orderBy("created_at", "asc")
@@ -34,30 +33,34 @@ export default function Messages({ groupId, currId }) {
     } catch (e) {
       console.error(e.message);
     } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     }
   }, [groupId]);
 
   // scrolling when theres a new messages
   useEffect(() => {
-      if (scrollRef.current ) {
-        scrollRef.current.scrollIntoView({ behavior: "smooth" });
-      }
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   }, [messages]);
 
-  if (loading) {
+  if (loading && messages.length == 0) {
     return <Loader onMessage={true} />;
+  } else if (messages.length != 0) {
+    return (
+      <div className="w-full h-full flex flex-col gap-4 overflow-x-hidden">
+        <Message data={messages} author={user.uid} />
+        <span ref={scrollRef}></span>
+      </div>
+    );
   } else {
-    return messages.length == 0 ? (
+    return (
       <div className="w-full items-center h-full flex justify-center ">
         <div className="w-full text-lg text-sky-800 font-bold">
           <h1>It seems empty here. Type some message below.</h1>
         </div>
-      </div>
-    ) : (
-      <div className="w-full h-full flex flex-col gap-4 overflow-x-hidden">
-        <Message data={messages} author={user.uid} />
-        <span ref={scrollRef}></span>
       </div>
     );
   }
@@ -69,7 +72,9 @@ function Message({ data, author }) {
     return (
       <div
         className={`w-full px-5 flex ${
-          e.uid == author ? "justify-end pl-20 md:pl-48" : "justify-start pr-20 md:pr-48"
+          e.uid == author
+            ? "justify-end pl-20 md:pl-48"
+            : "justify-start pr-20 md:pr-48"
         }`}
         key={i}
       >

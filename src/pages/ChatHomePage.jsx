@@ -31,7 +31,7 @@ export default function ChatHomePage() {
         <section
           className={`w-full flex items-center z-20 absolute backdrop-blur-md h-screen justify-center`}
         >
-          <div className={`w-full text-2xl font-bold text-gray-800`}>
+          <div className={`w-full text-xl md:text-2xl font-bold text-gray-800`}>
             <h1>It seems you are not logged in yet, please log in first</h1>
             <div className="flex justify-center p-4">
               <Button val={"Ok"} route={"/"} />

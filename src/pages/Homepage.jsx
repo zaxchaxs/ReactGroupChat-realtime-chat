@@ -1,7 +1,11 @@
 import Button from "../components/Button";
-import testingLogo from "../assets/react.svg";
 import { useAuth } from "../contexts/AuthContext";
 import Loader from "../components/Loader";
+import googleIcon from "/icons/google-icon.svg"
+import ButtonAuth from "../components/ButtonAuth";
+import HomeIcon from "/icons/HomeChat-icon.svg";
+
+
 
 export default function Home() {
   const { user, loading: authLoad, loginWithGoogleHandler, logoutHandler } = useAuth();
@@ -15,7 +19,7 @@ export default function Home() {
       <div className="md:flex justify-between items-center">
         {/* image */}
         <div className="md:w-full w-[40vh] mx-auto items-center flex justify-center p-10 md:p-24">
-          <img src={testingLogo} alt="testing" width={300} />
+          <img src={HomeIcon} alt="testing" width={300} />
         </div>
 
         {/* detail */}
@@ -25,11 +29,9 @@ export default function Home() {
             Start chit chat with your friends.
           </h2>
           <div className="flex gap-7 p-2 my-10 justify-center">
-            <Button val={"Start Chat"} route={"/chat-homepage"} isHidden={user ? false : true} />
-            <Button
-              val={`${user ? "Logout" : "Login with google"}`}
-              handleClick={ user ? logoutHandler : loginWithGoogleHandler}
-            />
+            <Button val={"Start Chat"} route={"/chat-homepage"} isHidden={!user} />
+            
+            <ButtonAuth icon={googleIcon} handleClickButton={user ? logoutHandler : loginWithGoogleHandler} val={ user ? "Logout" : "Login With Google"} isLoggin={user} />
           </div>
         </div>
       </div>

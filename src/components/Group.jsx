@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
@@ -7,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 
 export default function Group({ data, getGroupId, index }) {
   const [lastMessage, setLastMessage] = useState("");
-  const [lengthMessage, setLengtMessage] = useState(35);
+  const [lengthMessage, setLengtMessage] = useState(40);
   const lengthMessageRef = useRef();
 
     //   resolution setting for lengthMessage

@@ -25,7 +25,7 @@ export function AuthProvider({ children }) {
       alert(e.message);
       console.error(e.message);
     } finally {
-      setLoading(false);
+      if(user) setLoading(false);
     }
   };
   
@@ -49,7 +49,9 @@ export function AuthProvider({ children }) {
     } catch (e) {
       console.error(e.message);
     } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     }
   };
 

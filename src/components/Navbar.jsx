@@ -79,13 +79,13 @@ function NavItems({ isNavOpen, onButtonClick, user, handleLogoutClick }) {
   return (
     <>
       <nav
-        className={`fixed z-30 items-center justify-center backdrop-blur-sm transition-all w-screen ease-in-out duration-700 overflow-hidden ${
+        className={`fixed z-30 items-center justify-center backdrop-blur-sm transition-all w-screen left-0 ease-in-out duration-700 overflow-hidden ${
           isNavOpen ? "" : "hidden"
         }`}
       >
-        <div className="relative backdrop-blur-sm bg-opacity-80 flex flex-col items-center space-x-8 w-screen h-screen bg-sky-600">
-          <div className="flex flex-col items-center space-y-8 my-auto mx-0">
-            <h1 className="text-6xl font-bold text-white ">Menu</h1>
+        <div className="relative backdrop-blur-sm bg-opacity-60 flex flex-col items-center space-x-8 w-screen h-screen bg-sky-600">
+          <div className="flex flex-col items-center gap-5  my-auto mx-0">
+            <h1 className="text-4xl font-bold text-white py-4 border-b-4">Menu</h1>
             <MenuButton val={"Home"} route={"/"} onMenuClick={onButtonClick} />
             <MenuButton val={"Chat"} route={"/chat-homepage"} onMenuClick={onButtonClick} />
             <MenuButton val={"About"} route={"/about"} onMenuClick={onButtonClick} />

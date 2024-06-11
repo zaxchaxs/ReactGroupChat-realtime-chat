@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
+import closeIcon from "/icons/close-icon.svg";
 
 /* eslint-disable react/prop-types */
 export default function ModalGroup({ isShowed, onSubmit, onModalClose }) {
@@ -30,13 +31,12 @@ export default function ModalGroup({ isShowed, onSubmit, onModalClose }) {
       <div
         className={`absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sky-600 rounded-lg shadow-lg p-4 `}
       >
-        <div className="font-bold text-lg md:text-xl p-2 px-4 text-white flex justify-between gap-4 border-b-2">
-          <h1>Create New Group</h1>
+        <div className="font-bold md:text-xl p-2 text-white flex justify-between border-b-2 items-center">
+          <h1>Create Group</h1>
           <button
             onClick={onModalClose}
-            className="h-fit p-1 px-3 bg-blue-400 rounded-md mt-2 hover:bg-blue-600 transition-all ease-in-out duration-200 text-white font-bold"
           >
-            &times;
+            <img src={closeIcon} alt="close-icon" className="w-7" />
           </button>
         </div>
         <div className="p-2">
@@ -64,7 +64,7 @@ export default function ModalGroup({ isShowed, onSubmit, onModalClose }) {
 function ModalBtn({value, handleSubmit, handleClose}) {
     return (
         <button
-            className="p-1 px-3 hover:bg-blue-600 hover:scale-105 transition-all ease-in-out duration-200 bg-blue-400 rounded-md mt-2 text-white font-bold"
+            className="p-1 px-3 hover:bg-blue-600 transition-all ease-in-out duration-200 bg-blue-400 rounded-md mt-2 text-white font-bold"
             onClick={handleSubmit ? handleSubmit : handleClose}
         >
         {value}

@@ -50,7 +50,7 @@ export default function Messages({ groupId, currId }) {
     return <Loader onMessage={true} />;
   } else if (messages.length != 0) {
     return (
-      <div className="w-full h-full flex flex-col gap-4 overflow-x-hidden">
+      <div className="w-full h-full flex flex-col gap-4 overflow-x-hidden py-4">
         <Message data={messages} author={user.uid} />
         <span ref={scrollRef}></span>
       </div>

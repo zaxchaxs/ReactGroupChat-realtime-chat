@@ -17,8 +17,9 @@ export default function Groups({groups, getGroupId }) {
          await addDoc(collection(db, "groups"), newData);
         } catch (e) {
           console.error(e.message);
+        } finally {
+          setModalShow(false);
         }
-        setModalShow(false);
       }
 
     return (

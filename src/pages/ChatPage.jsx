@@ -88,7 +88,7 @@ export default function ChatPage() {
             <Messages groupId={groupId} currId={currId} />
           </div>
           <div className="w-full left-0 absolute bottom-0">
-            <SendMessage groupId={groupId} />
+            <SendMessage groupId={groupId || currId} />
           </div>
         </div>
       </section>

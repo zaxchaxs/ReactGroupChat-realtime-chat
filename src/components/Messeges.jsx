@@ -80,13 +80,13 @@ function Message({ data, author }) {
       >
         <div
           className={`w-fit px-5 p-1 ${
-            e.uid == author ? "bg-blue-500" : "bg-blue-400"
-          } rounded-xl text-[13px] text-left`}
+            e.uid == author ? "bg-sky-600" : "bg-blue-500 "
+          } rounded-xl  text-left text-base`}
         >
           <h1 className="font-bold text-blue-950 w-full border-b-2 border-blue-950 p-[3px]">
             {e.created_by}
           </h1>
-          <h1 className="p-1 w-fit text-white">{e.message}</h1>
+          <h1 className="p-1 w-fit text-white ">{e.message}</h1>
         </div>
       </div>
     );

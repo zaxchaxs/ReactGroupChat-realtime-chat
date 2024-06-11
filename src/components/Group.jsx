@@ -110,7 +110,7 @@ export default function Group({ data, getGroupId, index }) {
         </button>
       </div>
 
-      <ModalInfoGroup isShowed={isShowingInfo} />
+      <ModalInfoGroup datas={data} isShowed={isShowingInfo} onCloseClick={handleClickInfo} />
     </>
   );
 }

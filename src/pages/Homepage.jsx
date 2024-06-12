@@ -1,14 +1,20 @@
-import Button from "../components/Button";
 import { useAuth } from "../contexts/AuthContext";
-import Loader from "../components/Loader";
-import googleIcon from "/icons/google-icon.svg"
-import ButtonAuth from "../components/ButtonAuth";
+
+import googleIcon from "/icons/google-icon.svg";
 import HomeIcon from "/icons/HomeChat-icon.svg";
 
-
+// components
+import Button from "../components/Button";
+import Loader from "../components/Loader";
+import ButtonAuth from "../components/ButtonAuth";
 
 export default function Home() {
-  const { user, loading: authLoad, loginWithGoogleHandler, logoutHandler } = useAuth();
+  const {
+    user,
+    loading: authLoad,
+    loginWithGoogleHandler,
+    logoutHandler,
+  } = useAuth();
 
   if (authLoad && !user) {
     return <Loader />;
@@ -29,9 +35,18 @@ export default function Home() {
             Start chit chat with your friends.
           </h2>
           <div className="flex gap-7 p-2 my-10 justify-center">
-            <Button val={"Start Chat"} route={"/chat-homepage"} isHidden={!user} />
-            
-            <ButtonAuth icon={googleIcon} handleClickButton={user ? logoutHandler : loginWithGoogleHandler} val={ user ? "Logout" : "Login With Google"} isLoggin={user} />
+            <Button
+              val={"Start Chat"}
+              route={"/chat-homepage"}
+              isHidden={!user}
+            />
+
+            <ButtonAuth
+              icon={googleIcon}
+              handleClickButton={user ? logoutHandler : loginWithGoogleHandler}
+              val={user ? "Logout" : "Login With Google"}
+              isLoggin={user}
+            />
           </div>
         </div>
       </div>

@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import './App.css'
 import { AuthProvider } from "./contexts/AuthContext";
+import './App.css'
 import Navbar from './components/Navbar';
+// Pages Components
 import Homepage from './pages/Homepage';
 import ChatHomePage from "./pages/ChatHomePage";
 import ChatPage from "./pages/ChatPage";

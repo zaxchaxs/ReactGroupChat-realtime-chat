@@ -1,13 +1,24 @@
 /* eslint-disable react/prop-types */
-import { collection, deleteDoc, doc, getDocs, query, updateDoc } from "firebase/firestore";
+
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+} from "firebase/firestore";
+import { db } from "../firebase";
+
+import { useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
+import Loader from "./Loader";
+
+// icons
 import closeIcon from "/icons/close-icon.svg";
 import updateICon from "/icons/edit-icon.svg";
 import deleteIcon from "/icons/trash-icon.svg";
-import { db } from "../firebase";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Loader from "./Loader";
-import { useAuth } from "../contexts/AuthContext";
 
 export default function ModalInfoGroup({ isShowed, onCloseClick, datas }) {
   const [loading, setLoading] = useState(false);
@@ -20,6 +31,7 @@ export default function ModalInfoGroup({ isShowed, onCloseClick, datas }) {
     try {
       setLoading(true);
       await deleteGroup();
+      // also deleting the message of the group if theres a message.
       await deleteMessage();
     } catch (e) {
       console.error(e.message);
@@ -38,7 +50,6 @@ export default function ModalInfoGroup({ isShowed, onCloseClick, datas }) {
     await deleteDoc(qGroup);
   };
 
-  // also deleting the message of the group
   const deleteMessage = async () => {
     const qMessage = query(collection(db, `messages/${datas.id}/message`));
     const docSnap = await getDocs(qMessage);
@@ -88,28 +99,29 @@ export default function ModalInfoGroup({ isShowed, onCloseClick, datas }) {
               <tr>
                 <th className="w-1/2 md:w-1/3 ">Group Name</th>
                 <th>:</th>
-                {
-                  datas.name.length > 85 ? (
-                    <>
-                      <th className=" w-full font-semibold text-red-300">{datas.name.slice(0, 85) + "... Panjang banget bang:("}</th>
-                    </>
-                    ) : (
-                    <th className=" w-full font-semibold">{datas.name}</th>
-                  )
-                }
+                {datas.name.length > 85 ? (
+                  <>
+                    <th className=" w-full font-semibold text-red-300">
+                      {datas.name.slice(0, 85) + "... Panjang banget bang:("}
+                    </th>
+                  </>
+                ) : (
+                  <th className=" w-full font-semibold">{datas.name}</th>
+                )}
               </tr>
               <tr>
                 <th className="w-1/2 md:w-1/3 ">Created By</th>
                 <th>:</th>
-                {
-                  datas.created_by.length > 50 ? (
-                    <>
-                      <th className=" w-full font-semibold text-red-300">{datas.created_by.slice(0, 50) + "... Panjang banget bang:("}</th>
-                    </>
-                    ) : (
-                    <th className=" w-full font-semibold">{datas.created_by}</th>
-                  )
-                }
+                {datas.created_by.length > 50 ? (
+                  <>
+                    <th className=" w-full font-semibold text-red-300">
+                      {datas.created_by.slice(0, 50) +
+                        "... Panjang banget bang:("}
+                    </th>
+                  </>
+                ) : (
+                  <th className=" w-full font-semibold">{datas.created_by}</th>
+                )}
               </tr>
               <tr>
                 <th>Created At</th>
@@ -161,13 +173,13 @@ function ModalUpdateGroup({ onModalClose, data }) {
 
   const newData = {
     name: groupName,
-    updated_at: new Date()
+    updated_at: new Date(),
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if(!newData.name) {
+      if (!newData.name) {
         alert("Please enter a valid group name");
       } else {
         setGroupName("");
@@ -175,7 +187,7 @@ function ModalUpdateGroup({ onModalClose, data }) {
         await updateDoc(q, newData);
         onModalClose();
       }
-    } catch(e) {
+    } catch (e) {
       console.error(e.message);
     }
   };

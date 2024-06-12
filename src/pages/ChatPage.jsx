@@ -1,15 +1,18 @@
 /* eslint-disable no-unused-vars */
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import { useEffect, useState } from "react";
 import { db } from "../firebase";
+
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import backArrow from "/icons/back-icon.svg";
+
+// components
 import Loader from "../components/Loader";
 import Button from "../components/Button";
 import Groups from "../components/Groups";
 import Messages from "../components/Messeges";
 import SendMessage from "../components/SendMessage";
-import { Link } from "react-router-dom";
-import backArrow from "/icons/back-icon.svg";
 
 export default function ChatPage() {
   const [groups, setGroups] = useState([]);
@@ -17,7 +20,6 @@ export default function ChatPage() {
   const [currId, setCurrId] = useState("");
   const [isMobile, setIsMobile] = useState(false);
   const { user, loading: authload } = useAuth();
-  // const queryParams = new URLSearchParams(location.search);
 
   const handleGroupClick = (id) => {
     setGroupId(id);
@@ -38,7 +40,7 @@ export default function ChatPage() {
         setGroups(newData);
       });
 
-      // get backup id by query params
+      // get backup id by query params if user refreshed the browser
       const queryParams = new URLSearchParams(location.search);
       const id = queryParams.get("groupId");
       setCurrId(id);

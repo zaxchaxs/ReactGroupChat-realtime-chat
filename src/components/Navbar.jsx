@@ -1,24 +1,23 @@
 /* eslint-disable react/prop-types */
 
-// import { Authentication } from "../firebase";
 import { useEffect, useState } from "react";
-import { useAuth } from "../contexts/AuthContext";
-import Button from "./Button";
 import { Link } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+
+import Button from "./Button";
 
 export default function Navbar() {
   const [isNavOpen, setNavOpen] = useState(false);
   const { user, logoutHandler } = useAuth();
 
-  // handler function
+  useEffect(() => {
+    setNavOpen(false);
+  }, [user]);
+
+  // handle function
   const handleHumBtn = () => {
     setNavOpen(!isNavOpen);
   };
-
-  useEffect(() => {
-    setNavOpen(false);
-  }, [user])
-
 
   return (
     <div className="p-4 md:p-5 bg-sky-600 justify-between flex fixed w-full z-20 items-center">
@@ -41,14 +40,18 @@ export default function Navbar() {
         <HumbergerBtn onHumBtnClick={handleHumBtn} isNavOpen={isNavOpen} />
       </div>
       <div className="absolute top-0 h-screen">
-        <NavItems isNavOpen={isNavOpen} onButtonClick={handleHumBtn} user={user} handleLogoutClick={logoutHandler} />
+        <NavItems
+          isNavOpen={isNavOpen}
+          onButtonClick={handleHumBtn}
+          user={user}
+          handleLogoutClick={logoutHandler}
+        />
       </div>
     </div>
   );
 }
 
 // Child Components
-
 function HumbergerBtn({ isNavOpen, onHumBtnClick }) {
   return (
     <button
@@ -85,11 +88,25 @@ function NavItems({ isNavOpen, onButtonClick, user, handleLogoutClick }) {
       >
         <div className="relative backdrop-blur-sm bg-opacity-60 flex flex-col items-center space-x-8 w-screen h-screen bg-sky-600">
           <div className="flex flex-col items-center gap-5  my-auto mx-0">
-            <h1 className="text-4xl font-bold text-white py-4 border-b-4">Menu</h1>
+            <h1 className="text-4xl font-bold text-white py-4 border-b-4">
+              Menu
+            </h1>
             <MenuButton val={"Home"} route={"/"} onMenuClick={onButtonClick} />
-            <MenuButton val={"Chat"} route={"/chat-homepage"} onMenuClick={onButtonClick} />
-            <MenuButton val={"About"} route={"/about"} onMenuClick={onButtonClick} />
-            <MenuButton val={user ? "Logout" : "Login"} route={"/"} onMenuClick={user ? handleLogoutClick : onButtonClick} />
+            <MenuButton
+              val={"Chat"}
+              route={"/chat-homepage"}
+              onMenuClick={onButtonClick}
+            />
+            <MenuButton
+              val={"About"}
+              route={"/about"}
+              onMenuClick={onButtonClick}
+            />
+            <MenuButton
+              val={user ? "Logout" : "Login"}
+              route={"/"}
+              onMenuClick={user ? handleLogoutClick : onButtonClick}
+            />
           </div>
         </div>
       </nav>
@@ -99,7 +116,11 @@ function NavItems({ isNavOpen, onButtonClick, user, handleLogoutClick }) {
 
 function MenuButton({ val, route, onMenuClick }) {
   return (
-    <Link to={route} className="text-2xl text-white font-bold p-2 hover:scale-105 duration-200 transition-all ease-in-out" onClick={onMenuClick}>
+    <Link
+      to={route}
+      className="text-2xl text-white font-bold p-2 hover:scale-105 duration-200 transition-all ease-in-out"
+      onClick={onMenuClick}
+    >
       <h1>{val}</h1>
     </Link>
   );

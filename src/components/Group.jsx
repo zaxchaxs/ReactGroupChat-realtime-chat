@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
+
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import { Link } from "react-router-dom";
 import { db } from "../firebase";
+
+import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import infoIcon from "/icons/info-icon.svg";
 import ModalInfoGroup from "./ModalInfoGroup";
@@ -38,6 +39,7 @@ export default function Group({ data, getGroupId, index }) {
         collection(db, `messages/${data.id}/message`),
         orderBy("created_at", "asc")
       );
+      // eslint-disable-next-line no-unused-vars
       const unsubscribe = onSnapshot(q, (snapshot) => {
         const messages = snapshot.docs.map((doc) => ({
           ...doc.data(),
@@ -67,7 +69,7 @@ export default function Group({ data, getGroupId, index }) {
   };
 
   const handleClickInfo = () => {
-    setIsShowingInfo(!isShowingInfo)
+    setIsShowingInfo(!isShowingInfo);
   };
 
   return (
@@ -94,9 +96,13 @@ export default function Group({ data, getGroupId, index }) {
                 alt={data.created_by}
               />
               <div>
-                
                 <h1 className="text-base md:text-base font-bold">
-                  {data.name.length > lengthMessage-15 ? `${data.name.slice(0, lengthMessageRef.current-15 || lengthMessage-15)}...` : data.name}
+                  {data.name.length > lengthMessage - 15
+                    ? `${data.name.slice(
+                        0,
+                        lengthMessageRef.current - 15 || lengthMessage - 15
+                      )}...`
+                    : data.name}
                 </h1>
                 <p className="text-[13px] md:text-sm">{lastMessage}</p>
               </div>
@@ -111,7 +117,11 @@ export default function Group({ data, getGroupId, index }) {
         </button>
       </div>
 
-      <ModalInfoGroup datas={data} isShowed={isShowingInfo} onCloseClick={handleClickInfo} />
+      <ModalInfoGroup
+        datas={data}
+        isShowed={isShowingInfo}
+        onCloseClick={handleClickInfo}
+      />
     </>
   );
 }

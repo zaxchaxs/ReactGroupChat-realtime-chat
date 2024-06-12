@@ -4,26 +4,26 @@ import closeIcon from "/icons/close-icon.svg";
 
 /* eslint-disable react/prop-types */
 export default function ModalGroup({ isShowed, onSubmit, onModalClose }) {
-    const { user } = useAuth();
-    const [groupName, setGroupName] = useState("");
+  const { user } = useAuth();
+  const [groupName, setGroupName] = useState("");
 
-    const newData = {
-        name: groupName,
-        created_at: new Date(),
-        created_by: user.displayName,
-        uid: user.uid,
-        photoURL: user.photoURL
-    };
+  const newData = {
+    name: groupName,
+    created_at: new Date(),
+    created_by: user.displayName,
+    uid: user.uid,
+    photoURL: user.photoURL,
+  };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if(!newData.name) {
-          alert("Please enter a valid group name");
-        } else {
-          onSubmit(newData);
-          setGroupName("");
-        }
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!newData.name) {
+      alert("Please enter a valid group name");
+    } else {
+      onSubmit(newData);
+      setGroupName("");
+    }
+  };
 
   return (
     <div
@@ -36,9 +36,7 @@ export default function ModalGroup({ isShowed, onSubmit, onModalClose }) {
       >
         <div className="font-bold md:text-xl p-2 text-white flex justify-between border-b-2 items-center">
           <h1>Create Group</h1>
-          <button
-            onClick={onModalClose}
-          >
+          <button onClick={onModalClose}>
             <img src={closeIcon} alt="close-icon" className="w-7" />
           </button>
         </div>
@@ -64,13 +62,13 @@ export default function ModalGroup({ isShowed, onSubmit, onModalClose }) {
 }
 
 // Child components
-function ModalBtn({value, handleSubmit, handleClose}) {
-    return (
-        <button
-            className="p-1 px-3 hover:bg-blue-600 transition-all ease-in-out duration-200 bg-blue-400 rounded-md mt-2 text-white font-bold"
-            onClick={handleSubmit ? handleSubmit : handleClose}
-        >
-        {value}
-        </button>
-    )
+function ModalBtn({ value, handleSubmit, handleClose }) {
+  return (
+    <button
+      className="p-1 px-3 hover:bg-blue-600 transition-all ease-in-out duration-200 bg-blue-400 rounded-md mt-2 text-white font-bold"
+      onClick={handleSubmit ? handleSubmit : handleClose}
+    >
+      {value}
+    </button>
+  );
 }

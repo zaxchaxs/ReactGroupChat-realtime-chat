@@ -94,8 +94,9 @@ export default function Group({ data, getGroupId, index }) {
                 alt={data.created_by}
               />
               <div>
+                
                 <h1 className="text-base md:text-base font-bold">
-                  {data.name}
+                  {data.name.length > lengthMessage-15 ? `${data.name.slice(0, lengthMessageRef.current-15 || lengthMessage-15)}...` : data.name}
                 </h1>
                 <p className="text-[13px] md:text-sm">{lastMessage}</p>
               </div>

@@ -70,7 +70,7 @@ function SosmedIcon({srcImage, srcRef}) {
 function Footer() {
     return(
         <div className="w-full text-center text-sm md:text-base">
-            <p>This Website is built with <a className="underline font-bold text-black" href="https://nextjs.org/" target="blank">React.JS & Vite</a>.</p>
+            <p>This Website is built with <a className="underline font-bold text-gray-900" href="https://nextjs.org/" target="blank">React.JS & Vite</a>.</p>
             <p>© Irzi 2024. <b>All right reserved.</b></p>
         </div>
     )

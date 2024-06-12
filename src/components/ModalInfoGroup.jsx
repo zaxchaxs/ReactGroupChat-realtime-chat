@@ -30,7 +30,6 @@ export default function ModalInfoGroup({ isShowed, onCloseClick, datas }) {
     }
   };
   const handleUpdateClick = () => {
-    onCloseClick();
     setIsShowUpdateModal(!isShowUpdateModal);
   };
 
@@ -89,12 +88,28 @@ export default function ModalInfoGroup({ isShowed, onCloseClick, datas }) {
               <tr>
                 <th className="w-1/2 md:w-1/3 ">Group Name</th>
                 <th>:</th>
-                <th className=" w-full font-semibold">{datas.name}</th>
+                {
+                  datas.name.length > 85 ? (
+                    <>
+                      <th className=" w-full font-semibold text-red-300">{datas.name.slice(0, 85) + "... Panjang banget bang:("}</th>
+                    </>
+                    ) : (
+                    <th className=" w-full font-semibold">{datas.name}</th>
+                  )
+                }
               </tr>
               <tr>
                 <th className="w-1/2 md:w-1/3 ">Created By</th>
                 <th>:</th>
-                <th className=" w-full font-semibold">{datas.created_by}</th>
+                {
+                  datas.created_by.length > 50 ? (
+                    <>
+                      <th className=" w-full font-semibold text-red-300">{datas.created_by.slice(0, 50) + "... Panjang banget bang:("}</th>
+                    </>
+                    ) : (
+                    <th className=" w-full font-semibold">{datas.created_by}</th>
+                  )
+                }
               </tr>
               <tr>
                 <th>Created At</th>
@@ -182,7 +197,7 @@ function ModalUpdateGroup({ onModalClose, data }) {
           <h1 className="p-2 text-white font-bold">Group name: </h1>
           <form onSubmit={(e) => handleSubmit(e)}>
             <input
-              className="p-1 rounded-lg"
+              className="p-1 rounded-lg focus:outline-none"
               type="text"
               value={groupName}
               onChange={(e) => setGroupName(e.target.value)}
@@ -199,7 +214,6 @@ function ModalUpdateGroup({ onModalClose, data }) {
   );
 }
 
-// Child components
 function ModalBtn({ value, handleSubmit, handleClose }) {
   return (
     <button

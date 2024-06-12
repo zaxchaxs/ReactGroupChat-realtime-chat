@@ -46,7 +46,7 @@ export default function ModalGroup({ isShowed, onSubmit, onModalClose }) {
           <h1 className="p-2 text-white font-bold">Group name: </h1>
           <form onSubmit={(e) => handleSubmit(e)}>
             <input
-              className="p-1 rounded-lg"
+              className="p-1 rounded-lg focus:outline-none"
               type="text"
               value={groupName}
               onChange={(e) => setGroupName(e.target.value)}

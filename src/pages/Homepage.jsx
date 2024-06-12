@@ -10,7 +10,7 @@ import HomeIcon from "/icons/HomeChat-icon.svg";
 export default function Home() {
   const { user, loading: authLoad, loginWithGoogleHandler, logoutHandler } = useAuth();
 
-  if (authLoad) {
+  if (authLoad && !user) {
     return <Loader />;
   }
 

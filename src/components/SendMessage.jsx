@@ -34,7 +34,7 @@ export default function SendMessage({groupId}) {
       <form className="flex p-4 bg-gray-300 rounded-t-xl gap-4" onSubmit={(e) => handleSubmitMessage(e)}>
         <input
           type="text"
-          className="w-full p-2 rounded-lg"
+          className="w-full p-2 rounded-lg focus:outline-none"
           placeholder="Type a message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}

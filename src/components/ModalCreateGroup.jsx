@@ -17,12 +17,15 @@ export default function ModalGroup({ isShowed, onSubmit, onModalClose }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSubmit(newData);
-        setGroupName("");
+        if(!newData.name) {
+          alert("Please enter a valid group name");
+        } else {
+          onSubmit(newData);
+          setGroupName("");
+        }
     };
 
   return (
-    // <div className={`${isShowed ? "" : "hidden"} absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sky-600 rounded-lg shadow-lg p-4 backdrop-blur-md`}>
     <div
       className={`${
         isShowed ? "" : "hidden"
@@ -51,9 +54,9 @@ export default function ModalGroup({ isShowed, onSubmit, onModalClose }) {
             ></input>
           </form>
         </div>
-        <div className="flex gap-2 justify-end border-t-2">
-          <ModalBtn value={"Close"} handleClose={onModalClose} />
+        <div className="flex gap-2 justify-between border-t-2">
           <ModalBtn value={"Submit"} handleSubmit={handleSubmit} />
+          <ModalBtn value={"Close"} handleClose={onModalClose} />
         </div>
       </div>
     </div>

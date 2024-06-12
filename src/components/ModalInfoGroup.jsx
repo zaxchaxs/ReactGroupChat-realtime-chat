@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { collection, deleteDoc, doc, query } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, query } from "firebase/firestore";
 import closeIcon from "/icons/close-icon.svg";
 import updateICon from "/icons/edit-icon.svg"
 import deleteIcon from "/icons/trash-icon.svg"
@@ -30,11 +30,18 @@ export default function ModalInfoGroup({isShowed, onCloseClick, datas}) {
     const deleteGroup = async () => {
         const qGroup = query(doc(db, `groups/${datas.id}`))
         await deleteDoc(qGroup);
+        console.log(qGroup);
     };
 
+    // also deleting the message of the group
     const deleteMessage = async () => {
         const qMessage = query(collection(db, `messages/${datas.id}/message`));
-        await deleteDoc(qMessage);
+        const docSnap = await getDocs(qMessage);
+        if(!docSnap.empty) {
+          docSnap.docs.map(async e => {
+            await deleteDoc(doc(db, `messages/${datas.id}/message/${e.id}`));
+          });
+        }
     }
 
     const convertTimestampToTime = (seconds, nanoseconds) => {

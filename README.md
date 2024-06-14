@@ -75,5 +75,5 @@ This project is a web application for real-time group chat built using React, Ta
   - Open a browser and go to http://localhost:5173
 
 ## License
-This project is licensed under the GPL-3.0 License. See the LICENSE file for more information.
+This project is licensed under the GPL-3.0 [LICENSE](LICENSE). See the LICENSE file for more information.
    

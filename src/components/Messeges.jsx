@@ -31,7 +31,7 @@ export default function Messages({ groupId, currId }) {
           setMessages([]);
         }
         });
-      return () => unsubscribe()
+      return () => unsubscribe();
     } catch (e) {
       console.error(e.message);
     } finally {
@@ -43,9 +43,7 @@ export default function Messages({ groupId, currId }) {
 
   // scrolling when theres a new messages
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollIntoView();
-    }
+    if (scrollRef.current) scrollRef.current.scrollIntoView();
   }, [messages]);
 
   if (loading && messages.length == 0) {

@@ -95,7 +95,7 @@ function Message({ data, author }) {
         key={i}
       >
         <div
-          className={`w-fit px-5 p-1 ${
+          className={`w-fit border-2 border-black px-5 p-1 break-all ${
             e.uid == author ? "bg-sky-600" : "bg-blue-500 "
           } rounded-xl  text-left text-base relative`}
         >

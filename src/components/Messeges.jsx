@@ -20,7 +20,6 @@ export default function Messages({ groupId, currId }) {
         collection(db, `messages/${groupId ? groupId : currId}/message`),
         orderBy("created_at", "asc")
       );
-
       // eslint-disable-next-line no-unused-vars
       const unsubscribe = onSnapshot(q, (snapshot) => {
         if (snapshot.docs.length != 0) {
@@ -31,7 +30,8 @@ export default function Messages({ groupId, currId }) {
         } else {
           setMessages([]);
         }
-      });
+        });
+      return () => unsubscribe()
     } catch (e) {
       console.error(e.message);
     } finally {
@@ -39,12 +39,12 @@ export default function Messages({ groupId, currId }) {
         setLoading(false);
       }, 500);
     }
-  }, [groupId]);
+  }, [groupId, currId]);
 
   // scrolling when theres a new messages
   useEffect(() => {
     if (scrollRef.current) {
-      scrollRef.current.scrollIntoView({ behavior: "smooth" });
+      scrollRef.current.scrollIntoView();
     }
   }, [messages]);
 
